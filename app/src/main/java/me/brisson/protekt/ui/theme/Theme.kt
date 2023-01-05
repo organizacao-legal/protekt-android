@@ -12,15 +12,23 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = LightBlue,
+    onPrimary = LighterBlue,
+    background = Black,
+    onBackground = White,
+    surface = Black,
+    onSurface = White,
+    error = Red
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = LightBlue,
+    onPrimary = LighterBlue,
+    background = Black,
+    onBackground = White,
+    surface = Black,
+    onSurface = White,
+    error = Red
 )
 
 @Composable
