@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.brisson.protekt.ui.theme.ProteKTTheme
+import me.brisson.protekt.ui.theme.montserrat
 
 @Composable
 fun AppButton(
@@ -67,8 +68,13 @@ fun PreviewAppButton() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp, vertical = 12.dp),
-                onClick = {}) {
-                Text(text = "This is a text", color = MaterialTheme.colorScheme.primary)
+                onClick = { }
+            ) {
+                Text(
+                    text = "This is a text",
+                    color = MaterialTheme.colorScheme.primary,
+                    fontFamily = montserrat
+                )
             }
             AppButton(
                 modifier = Modifier
@@ -76,7 +82,11 @@ fun PreviewAppButton() {
                     .padding(horizontal = 24.dp),
                 onClick = { }
             ) {
-                Text(text = "This is a text", color = MaterialTheme.colorScheme.onPrimary)
+                Text(
+                    text = "This is a text",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontFamily = montserrat
+                )
             }
         }
 
