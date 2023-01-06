@@ -11,4 +11,3 @@ val Green = Color(0xFF22C55E)
 val Yellow = Color(0xFFFACC15)
 val LightGray = Color(0xFFD4D4D4)
 val DarkGray = Color(0xFF737373)
-

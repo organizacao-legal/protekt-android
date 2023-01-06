@@ -14,20 +14,20 @@ import androidx.core.view.ViewCompat
 private val DarkColorScheme = darkColorScheme(
     primary = LightBlue,
     onPrimary = LighterBlue,
-    background = Black,
-    onBackground = White,
-    surface = Black,
-    onSurface = White,
+    background = White,
+    onBackground = Black,
+    surface = White,
+    onSurface = Black,
     error = Red
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = LightBlue,
     onPrimary = LighterBlue,
-    background = Black,
-    onBackground = White,
-    surface = Black,
-    onSurface = White,
+    background = White,
+    onBackground = Black,
+    surface = White,
+    onSurface = Black,
     error = Red
 )
 
