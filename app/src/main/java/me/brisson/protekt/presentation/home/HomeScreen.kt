@@ -9,15 +9,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
 @Composable
 fun HomeScreen() {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colorScheme.background)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
             text = "HOME",
@@ -26,6 +29,13 @@ fun HomeScreen() {
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground
             )
+        )
+
+        HomeHeader(
+            modifier = Modifier.padding(top = 5.dp, end = 24.dp, start = 15.dp),
+            onSearchInputChange = { },
+            onSearch = { },
+            onMenu = { }
         )
     }
 }
