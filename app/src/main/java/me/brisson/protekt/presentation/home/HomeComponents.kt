@@ -12,10 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,24 +32,39 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.brisson.protekt.R
+import me.brisson.protekt.ui.ChipGroup
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.utils.ItemTypes
 
+@ExperimentalMaterial3Api
 @Composable
 fun HomeHeader(
     modifier: Modifier = Modifier,
+    chips: List<ItemTypes>,
+    selectedChips: (items: List<String>) -> Unit,
     onSearchInputChange: ((value: String) -> Unit)? = null,
     onSearch: (value: String) -> Unit,
     onMenu: () -> Unit,
 ) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        IconButton(onClick = onMenu) {
-            Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+    Column(modifier = modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp, end = 24.dp, start = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onMenu) {
+                Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+            }
+            SearchInput(onSearch = onSearch, onValueChange = onSearchInputChange)
         }
-        SearchInput(onSearch = onSearch, onValueChange = onSearchInputChange)
+        ChipGroup(
+            modifier = Modifier.fillMaxWidth(),
+            chips = chips.map { stringResource(id = it.stringResId) },
+            contentPadding = PaddingValues(horizontal = 24.dp),
+            selectedChips = selectedChips
+        )
     }
 }
 
@@ -87,6 +99,7 @@ fun SearchInput(
             input = TextFieldValue("")
             onSearch(input.text)
         }),
+        textStyle = TextStyle(fontFamily = montserrat),
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         decorationBox = { innerTextField ->
             Crossfade(targetState = isFocused) { scope ->
@@ -151,10 +164,19 @@ fun SearchInput(
     )
 }
 
+@ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
 fun PreviewSearchInput() {
     ProteKTTheme {
-        HomeHeader(onSearchInputChange = { }, onSearch = { }, onMenu = { })
+        Column(modifier = Modifier.fillMaxWidth()) {
+            HomeHeader(
+                onSearchInputChange = { },
+                onSearch = { },
+                onMenu = { },
+                chips = enumValues<ItemTypes>().toList(),
+                selectedChips = { }
+            )
+        }
     }
 }
