@@ -3,6 +3,7 @@ package me.brisson.protekt.presentation.home
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -10,8 +11,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.rounded.Clear
-import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,12 +27,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import me.brisson.protekt.R
+import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.ui.ChipGroup
+import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 import me.brisson.protekt.utils.ItemTypes
@@ -162,6 +166,90 @@ fun SearchInput(
             }
         }
     )
+}
+
+@Composable
+fun CredentialItem(
+    modifier: Modifier = Modifier,
+    credential: Credential,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(RoundedCornerShape(4.dp))
+            .clickable { onClick() },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row {
+            AsyncImage(
+                modifier = Modifier
+                    .padding(start = 0.dp)
+                    .fillMaxHeight()
+                    .aspectRatio(1f),
+                model = credential.image,
+                placeholder = painterResource(id = R.drawable.image_placeholder),
+                contentDescription = null,
+                error = painterResource(id = R.drawable.image_placeholder)
+            )
+
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Text(
+                    text = credential.name,
+                    style = TextStyle(
+                        fontFamily = montserrat,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = credential.username,
+                    style = TextStyle(
+                        fontFamily = montserrat,
+                        fontWeight = FontWeight.Medium,
+                        color = DarkGray
+                    ),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+
+        IconButton(modifier = Modifier.size(30.dp), onClick = onClick) {
+            Icon(
+                modifier = Modifier.size(16.dp),
+                imageVector = Icons.Rounded.ArrowForwardIos,
+                contentDescription = null
+            )
+        }
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewCredentialItem() {
+    ProteKTTheme {
+        CredentialItem(
+            modifier = Modifier.padding(horizontal = 24.dp),
+            credential = Credential(
+                image = "https://logo.clearbit.com/https://twitter.com",
+                name = "Twitter",
+                username = "@JonDoe",
+                url = "http://twitter.com"
+            ),
+            onClick = { }
+        )
+    }
 }
 
 @ExperimentalMaterial3Api
