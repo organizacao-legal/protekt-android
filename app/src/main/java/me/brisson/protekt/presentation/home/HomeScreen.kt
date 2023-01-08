@@ -1,14 +1,15 @@
 package me.brisson.protekt.presentation.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -16,9 +17,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
-import me.brisson.protekt.domain.model.mockedItemList
 import me.brisson.protekt.ui.AppButton
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
@@ -27,7 +28,12 @@ import me.brisson.protekt.utils.ItemTypes
 
 @ExperimentalMaterial3Api
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         floatingActionButton = {
             AppButton(modifier = Modifier.padding(4.dp), onClick = { }) {
@@ -70,16 +76,31 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 )
             }
 
-            items(mockedItemList) { item ->
-                when (item) {
-                    is Credential -> {
-                        CredentialItem(
-                            modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
-                            credential = item,
-                            onClick = { }
+            uiState.itemList?.let { items ->
+                if (items.isNotEmpty()) {
+                    items(items) { item ->
+                        when (item) {
+                            is Credential -> {
+                                CredentialItem(
+                                    modifier = Modifier.padding(
+                                        horizontal = 24.dp,
+                                        vertical = 8.dp
+                                    ),
+                                    credential = item,
+                                    onClick = { }
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    item {
+                        ItemListEmptyState(
+                            modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
+                            onCreateItem = { }
                         )
                     }
                 }
+
             }
         }
     }

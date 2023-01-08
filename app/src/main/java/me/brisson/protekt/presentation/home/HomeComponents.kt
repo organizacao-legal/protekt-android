@@ -37,6 +37,7 @@ import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.ui.ChipGroup
 import me.brisson.protekt.ui.theme.DarkGray
+import me.brisson.protekt.ui.theme.LightGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 import me.brisson.protekt.utils.ItemTypes
@@ -187,6 +188,7 @@ fun CredentialItem(
             AsyncImage(
                 modifier = Modifier
                     .padding(start = 0.dp)
+                    .clip(RoundedCornerShape(4.dp))
                     .fillMaxHeight()
                     .aspectRatio(1f),
                 model = credential.image,
@@ -235,6 +237,66 @@ fun CredentialItem(
     }
 }
 
+@Composable
+fun ItemListEmptyState(
+    modifier: Modifier = Modifier,
+    onCreateItem: () -> Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            modifier = Modifier.size(150.dp),
+            painter = painterResource(id = R.drawable.sleeping_cloud),
+            contentDescription = null
+        )
+        Text(
+            text = "It's too quiet here.",
+            style = TextStyle(
+                fontFamily = montserrat,
+                fontSize = 16.sp,
+                color = LightGray,
+                fontWeight = FontWeight.Medium
+            )
+        )
+        Text(
+            modifier = Modifier
+                .padding(top = 5.dp)
+                .clip(RoundedCornerShape(4.dp))
+                .clickable { onCreateItem() }
+                .padding(horizontal = 6.dp, vertical = 3.dp)
+            ,
+            text = "Click here to create an item!",
+            style = TextStyle(
+                fontFamily = montserrat,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary
+            )
+        )
+    }
+}
+
+
+
+@ExperimentalMaterial3Api
+@Preview(showBackground = true)
+@Composable
+fun PreviewSearchInput() {
+    ProteKTTheme {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            HomeHeader(
+                onSearchInputChange = { },
+                onSearch = { },
+                onMenu = { },
+                chips = enumValues<ItemTypes>().toList(),
+                selectedChips = { }
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewCredentialItem() {
@@ -252,19 +314,10 @@ fun PreviewCredentialItem() {
     }
 }
 
-@ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
-fun PreviewSearchInput() {
+fun PreviewItemsEmptyState() {
     ProteKTTheme {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            HomeHeader(
-                onSearchInputChange = { },
-                onSearch = { },
-                onMenu = { },
-                chips = enumValues<ItemTypes>().toList(),
-                selectedChips = { }
-            )
-        }
+        ItemListEmptyState(modifier = Modifier.fillMaxWidth(), onCreateItem = { })
     }
 }
