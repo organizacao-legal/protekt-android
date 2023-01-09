@@ -30,7 +30,8 @@ import me.brisson.protekt.utils.ItemTypes
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onItem: (itemId: String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -40,7 +41,7 @@ fun HomeScreen(
                 Icon(
                     modifier = Modifier.padding(horizontal = 0.dp),
                     imageVector = Icons.Rounded.Add,
-                    contentDescription = null,
+                    contentDescription = stringResource(id = R.string.icon_add_content_description),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
@@ -76,8 +77,17 @@ fun HomeScreen(
                 )
             }
 
-            uiState.itemList?.let { items ->
-                if (items.isNotEmpty()) {
+            uiState.itemList.let { items ->
+                if (items.isNullOrEmpty()) {
+                    item {
+                        ItemListEmptyState(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 50.dp),
+                            onCreateItem = { }
+                        )
+                    }
+                } else {
                     items(items) { item ->
                         when (item) {
                             is Credential -> {
@@ -87,17 +97,10 @@ fun HomeScreen(
                                         vertical = 8.dp
                                     ),
                                     credential = item,
-                                    onClick = { }
+                                    onClick = { onItem(item.id) }
                                 )
                             }
                         }
-                    }
-                } else {
-                    item {
-                        ItemListEmptyState(
-                            modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
-                            onCreateItem = { }
-                        )
                     }
                 }
 
@@ -111,6 +114,6 @@ fun HomeScreen(
 @Composable
 fun PreviewHomeScreen() {
     ProteKTTheme {
-        HomeScreen()
+        HomeScreen(onItem = { })
     }
 }

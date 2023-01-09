@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import me.brisson.protekt.AppDestinations.HOME_ROUTE
+import me.brisson.protekt.AppDestinations.ITEM_DETAIL_ROUTE
 import me.brisson.protekt.presentation.home.HomeScreen
 
 @ExperimentalMaterial3Api
@@ -26,8 +27,12 @@ fun AppNavGraph(
         navController = navController,
         startDestination = startDestination,
     ) {
-        composable(route = AppDestinations.HOME_ROUTE) {
-            HomeScreen()
+        composable(route = HOME_ROUTE) {
+            HomeScreen(onItem = { })
+        }
+
+        composable(route = ITEM_DETAIL_ROUTE) {
+            //todo: item detail screen
         }
     }
 }

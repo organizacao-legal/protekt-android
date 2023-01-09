@@ -10,10 +10,12 @@ import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import me.brisson.protekt.R
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
@@ -49,7 +51,7 @@ fun CustomChip(
         ),
         leadingIcon = {
             if (selected) {
-                Icon(imageVector = Icons.Rounded.Check, contentDescription = null)
+                Icon(imageVector = Icons.Rounded.Check, contentDescription = stringResource(id = R.string.icon_check_content_description))
             }
         }
     )

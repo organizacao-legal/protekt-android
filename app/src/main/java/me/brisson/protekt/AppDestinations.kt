@@ -1,6 +1,7 @@
 package me.brisson.protekt
 
 import androidx.navigation.NavHostController
+import me.brisson.protekt.AppDestinationsArgs.ITEM_ID_ARGS
 import me.brisson.protekt.AppScreens.HOME_SCREEN
 import me.brisson.protekt.AppScreens.ITEM_DETAIL_SCREEN
 
@@ -15,6 +16,7 @@ object AppDestinationsArgs {
 
 object AppDestinations {
     const val HOME_ROUTE = HOME_SCREEN
+    const val ITEM_DETAIL_ROUTE = "$ITEM_DETAIL_SCREEN/$ITEM_ID_ARGS"
 }
 
 class AppNavigationActions(private val navController: NavHostController) {

@@ -60,7 +60,10 @@ fun HomeHeader(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onMenu) {
-                Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = stringResource(id = R.string.icon_menu_content_description)
+                )
             }
             SearchInput(onSearch = onSearch, onValueChange = onSearchInputChange)
         }
@@ -130,7 +133,7 @@ fun SearchInput(
                             Icon(
                                 modifier = Modifier,
                                 imageVector = Icons.Rounded.Clear,
-                                contentDescription = null,
+                                contentDescription = stringResource(id = R.string.icon_clear_content_description),
                                 tint = MaterialTheme.colorScheme.onBackground
                             )
                         }
@@ -143,7 +146,7 @@ fun SearchInput(
                             Image(
                                 modifier = Modifier.size(24.dp),
                                 painter = painterResource(id = R.drawable.kotlin_logo),
-                                contentDescription = null
+                                contentDescription = stringResource(id = R.string.app_image_logo_content_description)
                             )
                             Text(
                                 text = stringResource(id = R.string.app_name).toUpperCase(Locale.current),
@@ -159,7 +162,7 @@ fun SearchInput(
                         Icon(
                             modifier = Modifier.padding(horizontal = 10.dp),
                             imageVector = Icons.Rounded.Search,
-                            contentDescription = null,
+                            contentDescription = stringResource(id = R.string.icon_search_content_description),
                             tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
@@ -193,7 +196,10 @@ fun CredentialItem(
                     .aspectRatio(1f),
                 model = credential.image,
                 placeholder = painterResource(id = R.drawable.image_placeholder),
-                contentDescription = null,
+                contentDescription = stringResource(
+                    id = R.string.credential_image_content_description,
+                    credential.name
+                ),
                 error = painterResource(id = R.drawable.image_placeholder)
             )
 
@@ -230,7 +236,7 @@ fun CredentialItem(
             Icon(
                 modifier = Modifier.size(16.dp),
                 imageVector = Icons.Rounded.ArrowForwardIos,
-                contentDescription = null
+                contentDescription = stringResource(id = R.string.icon_arrow_forward_content_description)
             )
         }
 
@@ -249,10 +255,10 @@ fun ItemListEmptyState(
         Image(
             modifier = Modifier.size(150.dp),
             painter = painterResource(id = R.drawable.sleeping_cloud),
-            contentDescription = null
+            contentDescription = stringResource(id = R.string.item_list_empty_state_image_content_description)
         )
         Text(
-            text = "It's too quiet here.",
+            text = stringResource(id = R.string.item_list_empty_state_message),
             style = TextStyle(
                 fontFamily = montserrat,
                 fontSize = 16.sp,
@@ -265,9 +271,8 @@ fun ItemListEmptyState(
                 .padding(top = 5.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .clickable { onCreateItem() }
-                .padding(horizontal = 6.dp, vertical = 3.dp)
-            ,
-            text = "Click here to create an item!",
+                .padding(horizontal = 6.dp, vertical = 3.dp),
+            text = stringResource(id = R.string.item_list_empty_state_action),
             style = TextStyle(
                 fontFamily = montserrat,
                 fontSize = 16.sp,
@@ -277,7 +282,6 @@ fun ItemListEmptyState(
         )
     }
 }
-
 
 
 @ExperimentalMaterial3Api
