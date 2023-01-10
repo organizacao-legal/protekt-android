@@ -4,12 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
-import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -17,9 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
 @Composable
@@ -48,23 +48,13 @@ fun ItemDetailScreen(
                     contentDescription = stringResource(id = R.string.icon_arrow_back_content_description)
                 )
             }
-            TextButton(
+            IconButton(
                 onClick = { uiState.item?.let { onEdit(it.id) } },
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
+                colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
             ) {
                 Icon(
-                    modifier = Modifier.size(16.dp),
-                    imageVector = Icons.Rounded.Edit,
-                    contentDescription = stringResource(id = R.string.icon_edit_content_description)
-                )
-                Text(
-                    modifier = Modifier.padding(start = 8.dp),
-                    text = stringResource(id = R.string.edit),
-                    style = TextStyle(
-                        fontFamily = montserrat,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                    painter = painterResource(id = R.drawable.ic_dot_menu),
+                    contentDescription = stringResource(id = R.string.icon_menu_content_description)
                 )
             }
         }
@@ -73,7 +63,7 @@ fun ItemDetailScreen(
 
             Text(
                 modifier = Modifier.padding(24.dp),
-                text = stringResource(id = item.itemType.stringResId),
+                text = stringResource(id = item.type.stringResId),
                 style = TextStyle(
                     fontFamily = montserrat,
                     fontSize = 20.sp,

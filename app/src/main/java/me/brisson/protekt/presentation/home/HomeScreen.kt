@@ -59,7 +59,7 @@ fun HomeScreen(
                     onSearchInputChange = { },
                     onSearch = { },
                     onMenu = { },
-                    chips = enumValues<Item.ItemTypes>().toList(),
+                    chips = enumValues<Item.Type>().toList(),
                     selectedChips = { }
                 )
             }

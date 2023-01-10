@@ -26,11 +26,13 @@ val mockedItemList = listOf<Item>(
         image = "https://logo.clearbit.com/https://twitter.com",
         name = "Twitter",
         username = "@JonDoe",
+        password = "@Aa12345",
         url = "http://twitter.com"
     ),
     Credential(
         name = "Twitter",
         username = "@JonDoe",
+        password = "123",
         url = "http://twitter.com"
     )
 )

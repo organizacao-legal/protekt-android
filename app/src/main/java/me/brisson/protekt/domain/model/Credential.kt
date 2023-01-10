@@ -1,7 +1,5 @@
 package me.brisson.protekt.domain.model
 
-import androidx.annotation.StringRes
-import me.brisson.protekt.R
 import java.util.UUID
 
 data class Credential(
@@ -9,10 +7,11 @@ data class Credential(
     val url: String = "",
     val name: String = "",
     val username: String = "",
-    val password: String = "@Aa12345",
+    val password: String = "",
     val image: String = "",
+    val note: String = "",
     override val createdAt: Long = System.currentTimeMillis(),
-    override val itemType: Item.ItemTypes = Item.ItemTypes.CREDENTIALS
+    override val type: Item.Type = Item.Type.CREDENTIALS
 ) : Item {
 
     // Todo: passar essa função pro back e retornar o valor float no objeto
@@ -28,18 +27,5 @@ data class Credential(
             val filteredListSize = conditionList.filter { it }.size
             return  filteredListSize * singleItemPercentage
         }
-    }
-}
-
-interface Item {
-    val id: String
-    val createdAt: Long
-    val itemType: ItemTypes
-
-    enum class ItemTypes(@StringRes val stringResId: Int) {
-        CREDENTIALS(R.string.credentials),
-        CREDIT_CARDS(R.string.credit_cards),
-        IDENTITIES(R.string.identities),
-        SECRET_NOTES(R.string.secret_notes)
     }
 }

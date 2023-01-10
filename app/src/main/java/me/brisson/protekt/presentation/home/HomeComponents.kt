@@ -38,7 +38,7 @@ import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.ChipGroup
 import me.brisson.protekt.ui.theme.DarkGray
-import me.brisson.protekt.ui.theme.LightGray
+import me.brisson.protekt.ui.theme.MiddleGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
@@ -46,7 +46,7 @@ import me.brisson.protekt.ui.theme.montserrat
 @Composable
 fun HomeHeader(
     modifier: Modifier = Modifier,
-    chips: List<Item.ItemTypes>,
+    chips: List<Item.Type>,
     selectedChips: (items: List<String>) -> Unit,
     onSearchInputChange: ((value: String) -> Unit)? = null,
     onSearch: (value: String) -> Unit,
@@ -265,7 +265,7 @@ fun ItemListEmptyState(
             style = TextStyle(
                 fontFamily = montserrat,
                 fontSize = 16.sp,
-                color = LightGray,
+                color = MiddleGray,
                 fontWeight = FontWeight.Medium
             )
         )
@@ -298,7 +298,7 @@ fun PreviewSearchInput() {
                 onSearchInputChange = { },
                 onSearch = { },
                 onMenu = { },
-                chips = enumValues<Item.ItemTypes>().toList(),
+                chips = enumValues<Item.Type>().toList(),
                 selectedChips = { }
             )
         }

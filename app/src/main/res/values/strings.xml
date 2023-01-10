@@ -22,8 +22,8 @@
 
     
     <!--  types   -->
-    <string name="credentials">Credentials</string>
-    <string name="credit_cards">Credit cards</string>
-    <string name="identities">Identities</string>
-    <string name="secret_notes">Secret notes</string>
+    <string name="credentials">Credential</string>
+    <string name="credit_cards">Credit card</string>
+    <string name="identities">Identity</string>
+    <string name="secret_notes">Secret note</string>
 </resources>

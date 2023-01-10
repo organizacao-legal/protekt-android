@@ -17,7 +17,7 @@ import me.brisson.protekt.ui.theme.*
 fun PasswordSafetyLinearIndicator(
     modifier: Modifier = Modifier,
     percentage: Float,
-    backgroundColor: Color = LightGray
+    backgroundColor: Color = MiddleGray
 ) {
     Row(
         modifier = modifier
