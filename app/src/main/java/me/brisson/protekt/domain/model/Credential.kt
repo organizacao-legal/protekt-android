@@ -1,15 +1,18 @@
 package me.brisson.protekt.domain.model
 
+import androidx.annotation.StringRes
+import me.brisson.protekt.R
 import java.util.UUID
 
 data class Credential(
-    val id: String = UUID.randomUUID().toString(),
+    override val id: String = UUID.randomUUID().toString(),
     val url: String = "",
     val name: String = "",
     val username: String = "",
     val password: String = "@Aa12345",
     val image: String = "",
-    val createdAt: Long = System.currentTimeMillis()
+    override val createdAt: Long = System.currentTimeMillis(),
+    override val itemType: Item.ItemTypes = Item.ItemTypes.CREDENTIALS
 ) : Item {
 
     // Todo: passar essa função pro back e retornar o valor float no objeto
@@ -28,18 +31,15 @@ data class Credential(
     }
 }
 
-interface Item
+interface Item {
+    val id: String
+    val createdAt: Long
+    val itemType: ItemTypes
 
-val mockedItemList = listOf<Item>(
-    Credential(
-        image = "https://logo.clearbit.com/https://twitter.com",
-        name = "Twitter",
-        username = "@JonDoe",
-        url = "http://twitter.com"
-    ),
-    Credential(
-        name = "Twitter",
-        username = "@JonDoe",
-        url = "http://twitter.com"
-    )
-)
+    enum class ItemTypes(@StringRes val stringResId: Int) {
+        CREDENTIALS(R.string.credentials),
+        CREDIT_CARDS(R.string.credit_cards),
+        IDENTITIES(R.string.identities),
+        SECRET_NOTES(R.string.secret_notes)
+    }
+}

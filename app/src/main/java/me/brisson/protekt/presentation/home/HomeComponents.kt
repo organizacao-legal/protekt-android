@@ -35,18 +35,18 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.ChipGroup
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.LightGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
-import me.brisson.protekt.utils.ItemTypes
 
 @ExperimentalMaterial3Api
 @Composable
 fun HomeHeader(
     modifier: Modifier = Modifier,
-    chips: List<ItemTypes>,
+    chips: List<Item.ItemTypes>,
     selectedChips: (items: List<String>) -> Unit,
     onSearchInputChange: ((value: String) -> Unit)? = null,
     onSearch: (value: String) -> Unit,
@@ -298,7 +298,7 @@ fun PreviewSearchInput() {
                 onSearchInputChange = { },
                 onSearch = { },
                 onMenu = { },
-                chips = enumValues<ItemTypes>().toList(),
+                chips = enumValues<Item.ItemTypes>().toList(),
                 selectedChips = { }
             )
         }

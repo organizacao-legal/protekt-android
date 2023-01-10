@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import me.brisson.protekt.AppDestinations.HOME_ROUTE
 import me.brisson.protekt.AppDestinations.ITEM_DETAIL_ROUTE
 import me.brisson.protekt.presentation.home.HomeScreen
+import me.brisson.protekt.presentation.item_detail.ItemDetailScreen
 
 @ExperimentalMaterial3Api
 @Composable
@@ -28,11 +29,15 @@ fun AppNavGraph(
         startDestination = startDestination,
     ) {
         composable(route = HOME_ROUTE) {
-            HomeScreen(onItem = { })
+            HomeScreen(
+                onItem = { navActions.navigateToItemDetail(it) })
         }
 
         composable(route = ITEM_DETAIL_ROUTE) {
-            //todo: item detail screen
+            ItemDetailScreen(
+                onBack = { navController.popBackStack() },
+                onEdit = { }
+            )
         }
     }
 }

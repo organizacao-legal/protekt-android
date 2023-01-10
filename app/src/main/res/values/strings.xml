@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ProteKT</string>
     <string name="my_vault">My vault</string>
+    <string name="edit">Edit</string>
 
     <!--  Item list empty state   -->
     <string name="item_list_empty_state_message">It\'s too quiet here.</string>
@@ -12,8 +13,10 @@
     <string name="icon_clear_content_description">Clear icon</string>
     <string name="icon_search_content_description">Search icon</string>
     <string name="icon_arrow_forward_content_description">Arrow forward icon</string>
+    <string name="icon_arrow_back_content_description">Arrow back icon</string>
     <string name="icon_check_content_description">Check icon</string>
     <string name="icon_add_content_description">Add icon</string>
+    <string name="icon_edit_content_description">Edit icon</string>
     <string name="app_image_logo_content_description">App logo</string>
     <string name="credential_image_content_description">%s credential logo</string>
 

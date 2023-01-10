@@ -20,11 +20,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.AppButton
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
-import me.brisson.protekt.utils.ItemTypes
 
 @ExperimentalMaterial3Api
 @Composable
@@ -59,7 +59,7 @@ fun HomeScreen(
                     onSearchInputChange = { },
                     onSearch = { },
                     onMenu = { },
-                    chips = enumValues<ItemTypes>().toList(),
+                    chips = enumValues<Item.ItemTypes>().toList(),
                     selectedChips = { }
                 )
             }
