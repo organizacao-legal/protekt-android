@@ -93,8 +93,8 @@ fun HomeScreen(
                             is Credential -> {
                                 CredentialItem(
                                     modifier = Modifier.padding(
-                                        horizontal = 24.dp,
-                                        vertical = 8.dp
+                                        horizontal = 16.dp,
+                                        vertical = 2.dp
                                     ),
                                     credential = item,
                                     onClick = { onItem(item.id) }

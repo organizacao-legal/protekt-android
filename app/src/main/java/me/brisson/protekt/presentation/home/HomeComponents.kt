@@ -181,9 +181,11 @@ fun CredentialItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
+            .padding(vertical = 0.dp)
             .clip(RoundedCornerShape(4.dp))
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .padding(8.dp)
+            .height(56.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -258,6 +260,7 @@ fun ItemListEmptyState(
             contentDescription = stringResource(id = R.string.item_list_empty_state_image_content_description)
         )
         Text(
+            modifier = Modifier.offset(y = (-10).dp),
             text = stringResource(id = R.string.item_list_empty_state_message),
             style = TextStyle(
                 fontFamily = montserrat,
@@ -268,7 +271,8 @@ fun ItemListEmptyState(
         )
         Text(
             modifier = Modifier
-                .padding(top = 5.dp)
+                .offset(y = (-10).dp)
+                .padding(top = 3.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .clickable { onCreateItem() }
                 .padding(horizontal = 6.dp, vertical = 3.dp),
