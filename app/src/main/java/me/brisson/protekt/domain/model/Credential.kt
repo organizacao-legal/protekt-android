@@ -5,7 +5,7 @@ import java.util.UUID
 data class Credential(
     override val id: String = UUID.randomUUID().toString(),
     val url: String = "",
-    val name: String = "",
+    override val name: String = "",
     val username: String = "",
     val password: String = "",
     val image: String = "",

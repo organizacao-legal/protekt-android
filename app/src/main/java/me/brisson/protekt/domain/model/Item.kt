@@ -5,6 +5,7 @@ import me.brisson.protekt.R
 
 interface Item {
     val id: String
+    val name: String
     val createdAt: Long
     val type: Type
 

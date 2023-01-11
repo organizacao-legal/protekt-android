@@ -2,6 +2,7 @@
     <string name="app_name">ProteKT</string>
     <string name="my_vault">My vault</string>
     <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
     <!--  Item list empty state   -->
     <string name="item_list_empty_state_message">It\'s too quiet here.</string>
@@ -11,6 +12,7 @@
     <string name="item_list_empty_state_image_content_description">Empty list image</string>
     <string name="icon_menu_content_description">Menu icon</string>
     <string name="icon_clear_content_description">Clear icon</string>
+    <string name="icon_delete_content_description">Delete icon</string>
     <string name="icon_search_content_description">Search icon</string>
     <string name="icon_arrow_forward_content_description">Arrow forward icon</string>
     <string name="icon_arrow_back_content_description">Arrow back icon</string>

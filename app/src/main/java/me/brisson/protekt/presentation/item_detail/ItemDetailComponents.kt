@@ -8,10 +8,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ContentCopy
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +33,7 @@ import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.ui.EditText
 import me.brisson.protekt.ui.PasswordSafetyLinearIndicator
 import me.brisson.protekt.ui.theme.DarkGray
+import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
@@ -225,6 +225,89 @@ fun CredentialDetails(
             verticalAlignment = Alignment.Top,
             text = credential.note,
             enabled = false,
+        )
+    }
+}
+
+@Composable
+fun ItemOptionsDropdown(
+    modifier: Modifier = Modifier,
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit,
+) {
+    DropdownMenu(
+        modifier = modifier.background(MaterialTheme.colorScheme.surface),
+        expanded = expanded,
+        onDismissRequest = onDismissRequest
+    ) {
+        DropdownMenuItem(
+            text = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        imageVector = Icons.Rounded.Edit,
+                        contentDescription = stringResource(id = R.string.icon_edit_content_description),
+                        tint = DarkGray
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 8.dp),
+                        text = stringResource(id = R.string.edit),
+                        style = TextStyle(
+                            fontFamily = montserrat,
+                            color = DarkGray,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                }
+            },
+            onClick = onEdit
+        )
+
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 0.5.dp,
+            color = MidGray
+        )
+
+        DropdownMenuItem(
+            text = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        imageVector = Icons.Rounded.Delete,
+                        contentDescription = stringResource(id = R.string.icon_delete_content_description),
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 8.dp),
+                        text = stringResource(id = R.string.delete),
+                        style = TextStyle(
+                            fontFamily = montserrat,
+                            color = MaterialTheme.colorScheme.error,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    )
+                }
+            },
+            onClick = onDelete
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewItemOptionsDropdown() {
+    ProteKTTheme {
+        ItemOptionsDropdown(
+            modifier = Modifier.width(150.dp),
+            expanded = true,
+            onDismissRequest = { },
+            onDelete = { },
+            onEdit = { },
         )
     }
 }

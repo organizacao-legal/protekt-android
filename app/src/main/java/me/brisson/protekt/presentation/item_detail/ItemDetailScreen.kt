@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,6 +28,7 @@ fun ItemDetailScreen(
     viewModel: ItemDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var menuExtended by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -49,14 +48,31 @@ fun ItemDetailScreen(
                 )
             }
             IconButton(
-                onClick = { uiState.item?.let { onEdit(it.id) } },
-                colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.onBackground)
+                onClick = { menuExtended = true },
+                colors = IconButtonDefaults.iconButtonColors(
+                    contentColor = MaterialTheme.colorScheme.onBackground
+                )
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_dot_menu),
                     contentDescription = stringResource(id = R.string.icon_menu_content_description)
                 )
+
+                ItemOptionsDropdown(
+                    modifier = Modifier.width(150.dp),
+                    expanded = menuExtended,
+                    onDismissRequest = { menuExtended = false },
+                    onEdit = {
+                        uiState.item?.let { onEdit(it.id) }
+                        menuExtended = false
+                    },
+                    onDelete =  {
+                        //todo: show delete dialog
+                        menuExtended = false
+                    }
+                )
             }
+
         }
 
         uiState.item?.let { item ->

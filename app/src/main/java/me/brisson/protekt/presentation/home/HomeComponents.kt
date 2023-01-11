@@ -38,7 +38,7 @@ import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.ChipGroup
 import me.brisson.protekt.ui.theme.DarkGray
-import me.brisson.protekt.ui.theme.MiddleGray
+import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
@@ -265,7 +265,7 @@ fun ItemListEmptyState(
             style = TextStyle(
                 fontFamily = montserrat,
                 fontSize = 16.sp,
-                color = MiddleGray,
+                color = MidGray,
                 fontWeight = FontWeight.Medium
             )
         )
