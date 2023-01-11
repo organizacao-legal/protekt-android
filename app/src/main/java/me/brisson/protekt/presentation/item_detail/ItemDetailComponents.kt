@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.ui.AppButton
+import me.brisson.protekt.ui.AppButtonOutlined
 import me.brisson.protekt.ui.EditText
 import me.brisson.protekt.ui.PasswordSafetyLinearIndicator
 import me.brisson.protekt.ui.theme.DarkGray
@@ -298,6 +301,83 @@ fun ItemOptionsDropdown(
     }
 }
 
+@Composable
+fun DeleteItemDialogUi(
+    modifier: Modifier = Modifier,
+    onDelete: () -> Unit,
+    onCancel: () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(4.dp))
+            .background(MaterialTheme.colorScheme.surface)
+    ) {
+        IconButton(modifier = Modifier.align(Alignment.TopEnd), onClick = onCancel) {
+            Icon(
+                imageVector = Icons.Rounded.Clear,
+                contentDescription = stringResource(id = R.string.icon_clear_content_description)
+            )
+        }
+
+        Column(
+            modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 12.dp, top = 24.dp),
+        ) {
+            Text(
+                text = stringResource(id = R.string.delete_item_dialog_title),
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+            )
+            Text(
+                modifier = Modifier.padding(top = 8.dp),
+                text = stringResource(id = R.string.delete_item_dialog_text),
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    fontSize = 12.sp,
+                    color = DarkGray
+                )
+            )
+
+            Row(modifier = Modifier.padding(top = 30.dp)) {
+                val middlePaddingValue = 8.dp
+                AppButtonOutlined(
+                    modifier = Modifier
+                        .padding(end = middlePaddingValue)
+                        .weight(1f),
+                    onClick = onCancel,
+                    borderColor = DarkGray,
+                ) {
+                    Text(
+                        stringResource(id = R.string.delete_item_dialog_cancel_button),
+                        fontFamily = montserrat,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = DarkGray
+                    )
+                }
+                AppButton(
+                    modifier = Modifier
+                        .padding(start = middlePaddingValue)
+                        .weight(1f),
+                    onClick = onDelete,
+                    buttonColor = MaterialTheme.colorScheme.error
+                ) {
+                    Text(
+                        stringResource(id = R.string.delete_item_dialog_delete_button),
+                        fontFamily = montserrat,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.surface
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewItemOptionsDropdown() {
@@ -309,6 +389,14 @@ fun PreviewItemOptionsDropdown() {
             onDelete = { },
             onEdit = { },
         )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewDeleteItemDialogUi() {
+    ProteKTTheme {
+        DeleteItemDialogUi(onDelete = { }, onCancel = { })
     }
 }
 

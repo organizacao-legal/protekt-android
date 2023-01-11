@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.brisson.protekt.ui.theme.ProteKTTheme
@@ -20,12 +21,13 @@ import me.brisson.protekt.ui.theme.montserrat
 fun AppButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    buttonColor: Color = MaterialTheme.colorScheme.primary,
     content: @Composable RowScope.() -> Unit
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
-            .background(color = MaterialTheme.colorScheme.primary)
+            .background(color = buttonColor)
             .padding(vertical = 12.dp, horizontal = 16.dp)
             .clickable { onClick() },
         horizontalArrangement = Arrangement.Center,
@@ -38,13 +40,14 @@ fun AppButton(
 fun AppButtonOutlined(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    borderColor: Color = MaterialTheme.colorScheme.primary,
     content: @Composable RowScope.() -> Unit
 ) {
     Row(
         modifier = modifier
             .border(
                 width = 0.6.dp,
-                color = MaterialTheme.colorScheme.primary,
+                color = borderColor,
                 shape = RoundedCornerShape(4.dp)
             )
             .padding(vertical = 12.dp, horizontal = 16.dp)

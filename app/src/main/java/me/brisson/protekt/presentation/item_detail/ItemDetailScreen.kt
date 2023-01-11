@@ -7,6 +7,7 @@ import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -14,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
@@ -29,12 +31,26 @@ fun ItemDetailScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var menuExtended by remember { mutableStateOf(false) }
+    var openDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
+        if (openDialog) {
+            Dialog(onDismissRequest = { openDialog = false }) {
+                DeleteItemDialogUi(
+                    onDelete = {
+                        //todo: delete item
+                        onBack()
+                        openDialog = false
+                    },
+                    onCancel = { openDialog = false },
+                )
+            }
+        }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -54,6 +70,7 @@ fun ItemDetailScreen(
                 )
             ) {
                 Icon(
+                    modifier = Modifier.rotate(90f),
                     painter = painterResource(id = R.drawable.ic_dot_menu),
                     contentDescription = stringResource(id = R.string.icon_menu_content_description)
                 )
@@ -66,8 +83,8 @@ fun ItemDetailScreen(
                         uiState.item?.let { onEdit(it.id) }
                         menuExtended = false
                     },
-                    onDelete =  {
-                        //todo: show delete dialog
+                    onDelete = {
+                        openDialog = true
                         menuExtended = false
                     }
                 )
@@ -76,7 +93,6 @@ fun ItemDetailScreen(
         }
 
         uiState.item?.let { item ->
-
             Text(
                 modifier = Modifier.padding(24.dp),
                 text = stringResource(id = item.type.stringResId),
