@@ -3,6 +3,7 @@ package me.brisson.protekt
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,6 +14,7 @@ import me.brisson.protekt.AppDestinations.ITEM_DETAIL_ROUTE
 import me.brisson.protekt.presentation.home.HomeScreen
 import me.brisson.protekt.presentation.item_detail.ItemDetailScreen
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Composable
 fun AppNavGraph(

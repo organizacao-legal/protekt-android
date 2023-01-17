@@ -7,6 +7,7 @@
     <string name="delete_item_dialog_text">Are you sure you want to remove this item from your account?</string>
     <string name="delete_item_dialog_cancel_button">No, keep it</string>
     <string name="delete_item_dialog_delete_button">Yes, delete it</string>
+    <string name="create_item_bottom_sheet_title">Choose a type</string>
 
     <!--  Item list empty state   -->
     <string name="item_list_empty_state_message">It\'s too quiet here.</string>
