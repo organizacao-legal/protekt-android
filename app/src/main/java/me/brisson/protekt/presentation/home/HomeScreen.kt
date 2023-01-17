@@ -7,9 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -22,11 +21,14 @@ import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.AppButton
+import me.brisson.protekt.ui.BottomSheet
+import me.brisson.protekt.ui.CreateItemBottomSheet
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
 @ExperimentalMaterial3Api
+@ExperimentalComposeUiApi
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -34,10 +36,14 @@ fun HomeScreen(
     onItem: (itemId: String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var openDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {
-            AppButton(modifier = Modifier.padding(4.dp), onClick = { }) {
+            AppButton(
+                modifier = Modifier.padding(4.dp),
+                onClick = { openDialog = true }
+            ) {
                 Icon(
                     modifier = Modifier.padding(horizontal = 0.dp),
                     imageVector = Icons.Rounded.Add,
@@ -47,6 +53,25 @@ fun HomeScreen(
             }
         }
     ) { innerScaffoldPadding ->
+
+        if (openDialog) {
+            BottomSheet(
+                onDismissRequest = { openDialog = false },
+            ) {
+                CreateItemBottomSheet(
+                    onType = { type ->
+                        when(type) {
+                            Item.Type.CREDENTIALS -> { }
+                            Item.Type.CREDIT_CARDS -> { }
+                            Item.Type.SECRET_NOTES -> { }
+                            Item.Type.IDENTITIES -> { }
+                        }
+                        openDialog = false
+                    }
+                )
+            }
+        }
+
         LazyColumn(
             modifier = modifier
                 .padding(innerScaffoldPadding)
@@ -109,6 +134,7 @@ fun HomeScreen(
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterial3Api
 @Preview
 @Composable
