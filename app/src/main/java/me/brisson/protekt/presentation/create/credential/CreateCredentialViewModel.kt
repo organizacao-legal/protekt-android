@@ -1,4 +1,4 @@
-package me.brisson.protekt.presentation.item_detail
+package me.brisson.protekt.presentation.create.credential
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -10,22 +10,23 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.brisson.protekt.AppDestinationsArgs.ITEM_ID_ARGS
+import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.domain.model.Result
 import me.brisson.protekt.domain.repository.ItemRepository
 import javax.inject.Inject
-import me.brisson.protekt.domain.model.Result
 
 @HiltViewModel
-class ItemDetailViewModel @Inject constructor(
+class CreateCredentialViewModel @Inject constructor(
     private val itemRepository: ItemRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(ItemDetailUiState())
-    val uiState: StateFlow<ItemDetailUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(CreateCredentialUiState())
+    val uiState: StateFlow<CreateCredentialUiState> = _uiState.asStateFlow()
 
-    private val itemId: String = checkNotNull(savedStateHandle[ITEM_ID_ARGS])
+    private val itemId: String? = savedStateHandle[ITEM_ID_ARGS]
 
     init {
-        getItem(itemId)
+        itemId?.let { getItem(it) }
     }
 
     private fun getItem(itemId: String) {
@@ -33,8 +34,10 @@ class ItemDetailViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = itemRepository.getItemById(itemId)) {
                 is Result.Success -> {
-                    _uiState.update {
-                        it.copy(loading = false, item = result.data)
+                    (result.data as Credential).let {  credential ->
+                        _uiState.update {
+                            it.copy(loading = false, credential = credential)
+                        }
                     }
                 }
                 is Result.Error -> {
@@ -44,5 +47,10 @@ class ItemDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun validateUrl(url: String) {
+        // TODO: validate properly
+        _uiState.update { it.copy(urlCorrect = true, urlError = false) }
     }
 }

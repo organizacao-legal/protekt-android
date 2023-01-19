@@ -123,6 +123,7 @@ fun CredentialDetails(
             )
         )
         EditText(
+            modifier = Modifier.fillMaxWidth(),
             text = credential.username,
             label = {
                 Text(
@@ -158,6 +159,7 @@ fun CredentialDetails(
             )
         )
         EditText(
+            modifier = Modifier.fillMaxWidth(),
             text = credential.password,
             label = {
                 Text(

@@ -94,7 +94,6 @@ fun EditText(
                 EditTextState.Default -> {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .clip(RoundedCornerShape(4.dp))
                             .background(LightGray)
                             .padding(horizontal = 16.dp, vertical = 4.dp)
@@ -115,7 +114,6 @@ fun EditText(
                 EditTextState.Selected -> {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .border(
                                 border = BorderStroke(
                                     width = 1.dp,
@@ -149,7 +147,6 @@ fun EditText(
                 EditTextState.Error -> {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .border(
                                 border = BorderStroke(
                                     width = 1.dp,
@@ -179,7 +176,6 @@ fun EditText(
                 EditTextState.Correct -> {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .border(
                                 border = BorderStroke(
                                     width = 1.dp,

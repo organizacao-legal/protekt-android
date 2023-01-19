@@ -19,6 +19,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
@@ -26,7 +27,7 @@ import me.brisson.protekt.ui.theme.montserrat
 fun ItemDetailScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
-    onEdit: (itemId: String) -> Unit,
+    onEdit: (itemId: String, itemType: Item.Type) -> Unit,
     viewModel: ItemDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -80,7 +81,7 @@ fun ItemDetailScreen(
                     expanded = menuExtended,
                     onDismissRequest = { menuExtended = false },
                     onEdit = {
-                        uiState.item?.let { onEdit(it.id) }
+                        uiState.item?.let { onEdit(it.id, it.type) }
                         menuExtended = false
                     },
                     onDelete = {
@@ -120,6 +121,6 @@ fun ItemDetailScreen(
 @Composable
 fun PreviewItemDetailScreen() {
     ProteKTTheme {
-        ItemDetailScreen(onBack = { }, onEdit = { })
+        ItemDetailScreen(onBack = { }, onEdit = { _, _ -> })
     }
 }
