@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,11 @@ fun CreateCredentialScreen(
     onBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    var urlInput by remember { mutableStateOf(TextFieldValue("")) }
+    var nameInput by remember { mutableStateOf(TextFieldValue("")) }
+    var usernameInput by remember { mutableStateOf(TextFieldValue("")) }
+    var passwordInput by remember { mutableStateOf(TextFieldValue("")) }
 
     Column(
         modifier = modifier
@@ -69,18 +75,23 @@ fun CreateCredentialScreen(
                 color = MaterialTheme.colorScheme.onBackground
             )
         )
+
         EditText(
+            value = urlInput,
+            onValueChange = {
+                urlInput = it
+                viewModel.validateUrl(it.text)
+            },
+            onClearValue = { urlInput = TextFieldValue("") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
-            text = uiState.credential?.url,
             label = {
                 Text(
                     text = "ex. http://google.com",
                     style = TextStyle(fontFamily = montserrat, color = DarkGray)
                 )
             },
-            onValueChange = { viewModel.validateUrl(it) },
             correct = uiState.urlCorrect,
             error = uiState.urlError
         )
@@ -94,17 +105,21 @@ fun CreateCredentialScreen(
             )
         )
         EditText(
+            value = nameInput,
+            onValueChange = {
+                nameInput = it
+                viewModel.validateUrl(it.text)
+            },
+            onClearValue = { nameInput = TextFieldValue("") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
-            text = uiState.credential?.name,
             label = {
                 Text(
                     text = "ex. Google",
                     style = TextStyle(fontFamily = montserrat, color = DarkGray)
                 )
             },
-            onValueChange = { viewModel.validateUrl(it) }
         )
 
         Text(
@@ -118,11 +133,15 @@ fun CreateCredentialScreen(
             )
         )
         EditText(
+            value = usernameInput,
+            onValueChange = {
+                usernameInput = it
+                viewModel.validateUrl(it.text)
+            },
+            onClearValue = { usernameInput = TextFieldValue("") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp),
-            text = uiState.credential?.username,
-            onValueChange = { viewModel.validateUrl(it) }
         )
 
         Text(
@@ -146,11 +165,15 @@ fun CreateCredentialScreen(
             }
 
             EditText(
+                value = passwordInput,
+                onValueChange = {
+                    passwordInput = it
+                    viewModel.validateUrl(it.text)
+                },
+                onClearValue = { passwordInput = TextFieldValue("") },
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = 8.dp),
-                text = uiState.credential?.password,
-                onValueChange = { viewModel.validateUrl(it) },
                 trailingComponent = {
                     IconButton(onClick = { showPassword = !showPassword }) {
                         Icon(

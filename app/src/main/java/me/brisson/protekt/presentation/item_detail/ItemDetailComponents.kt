@@ -24,6 +24,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,6 +49,10 @@ fun CredentialDetails(
     val context = LocalContext.current
     val localClipboardManager = LocalClipboardManager.current
     var showPassword by remember { mutableStateOf(false) }
+    var usernameInput by remember { mutableStateOf(TextFieldValue("")) }
+    var passwordInput by remember { mutableStateOf(TextFieldValue("")) }
+    var notesInput by remember { mutableStateOf(TextFieldValue("")) }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -123,8 +128,10 @@ fun CredentialDetails(
             )
         )
         EditText(
+            value = usernameInput,
+            onValueChange = { usernameInput = it },
+            onClearValue = { usernameInput = TextFieldValue("") },
             modifier = Modifier.fillMaxWidth(),
-            text = credential.username,
             label = {
                 Text(
                     text = "username",
@@ -159,8 +166,10 @@ fun CredentialDetails(
             )
         )
         EditText(
+            value = passwordInput,
+            onValueChange = { passwordInput = it },
+            onClearValue = { passwordInput = TextFieldValue("") },
             modifier = Modifier.fillMaxWidth(),
-            text = credential.password,
             label = {
                 Text(
                     text = "password",
@@ -224,11 +233,13 @@ fun CredentialDetails(
         )
 
         EditText(
+            value = notesInput,
+            onValueChange = { notesInput = it },
+            onClearValue = { notesInput = TextFieldValue("") },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp),
             verticalAlignment = Alignment.Top,
-            text = credential.note,
             enabled = false,
         )
     }
