@@ -107,19 +107,14 @@ fun CreateCredentialScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
-        }
-
-        item {
             EditText(
-                value = urlInput,
-                onValueChange = {
-                    urlInput = it
-                    viewModel.validateUrl(it.text)
-                },
-                onClearValue = { urlInput = TextFieldValue("") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp),
+                value = urlInput,
+                onValueChange = { urlInput = it },
+                onFocus = { if (!it) viewModel.validateUrl(urlInput.text) },
+                onClearValue = { urlInput = TextFieldValue("") },
                 label = {
                     Text(
                         text = "ex. http://google.com",
@@ -131,8 +126,8 @@ fun CreateCredentialScreen(
                     imeAction = ImeAction.Next,
                     keyboardType = KeyboardType.Email
                 ),
-                correct = uiState.urlCorrect,
-                error = uiState.urlError
+                correct = uiState.isUrlValid ?: false,
+                error = uiState.isUrlValid?.not() ?: false
             )
         }
 
@@ -146,15 +141,13 @@ fun CreateCredentialScreen(
                 )
             )
             EditText(
-                value = nameInput,
-                onValueChange = {
-                    nameInput = it
-                    viewModel.validateUrl(it.text)
-                },
-                onClearValue = { nameInput = TextFieldValue("") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp),
+                value = nameInput,
+                onValueChange = { nameInput = it },
+                onFocus = { if (!it) viewModel.validateName(nameInput.text) },
+                onClearValue = { nameInput = TextFieldValue("") },
                 label = {
                     Text(
                         text = "ex. Google",
@@ -166,6 +159,8 @@ fun CreateCredentialScreen(
                     imeAction = ImeAction.Next,
                     keyboardType = KeyboardType.Text
                 ),
+                correct = uiState.isNameValid ?: false,
+                error = uiState.isNameValid?.not() ?: false
             )
         }
 
@@ -181,21 +176,20 @@ fun CreateCredentialScreen(
                 )
             )
             EditText(
-                value = usernameInput,
-                onValueChange = {
-                    usernameInput = it
-                    viewModel.validateUrl(it.text)
-                },
-                onClearValue = { usernameInput = TextFieldValue("") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp),
-
+                value = usernameInput,
+                onValueChange = { usernameInput = it },
+                onClearValue = { usernameInput = TextFieldValue("") },
+                onFocus = { if (!it) viewModel.validateUsername(usernameInput.text) },
                 keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
                     keyboardType = KeyboardType.Text
                 ),
+                correct = uiState.isUsernameValid ?: false,
+                error = uiState.isUsernameValid?.not() ?: false
             )
         }
 
@@ -221,16 +215,16 @@ fun CreateCredentialScreen(
                 }
 
                 EditText(
-                    value = passwordInput,
-                    onValueChange = {
-                        passwordInput = it
-                        viewModel.validateUrl(it.text)
-                    },
-                    onClearValue = { passwordInput = TextFieldValue("") },
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp),
-                    onFocus = { passwordEditTextHasFocus = it },
+                    value = passwordInput,
+                    onValueChange = { passwordInput = it },
+                    onClearValue = { passwordInput = TextFieldValue("") },
+                    onFocus = {
+                        passwordEditTextHasFocus = it
+                        if (!it) viewModel.validatePassword(Password(passwordInput.text))
+                    },
                     trailingComponent = {
                         IconButton(onClick = { showPassword = !showPassword }) {
                             Icon(
@@ -250,6 +244,8 @@ fun CreateCredentialScreen(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Password
                     ),
+                    correct = uiState.isPasswordValid ?: false,
+                    error = uiState.isPasswordValid?.not() ?: false
                 )
 
                 AppButtonOutlined(
@@ -291,13 +287,14 @@ fun CreateCredentialScreen(
             )
 
             EditText(
-                value = notesInput,
-                onValueChange = { notesInput = it },
-                onClearValue = { notesInput = TextFieldValue("") },
                 modifier = Modifier
                     .padding(horizontal = 24.dp)
                     .fillMaxWidth()
                     .height(130.dp),
+                value = notesInput,
+                onValueChange = { notesInput = it },
+                onFocus = { if (!it) viewModel.validateNote(notesInput.text) },
+                onClearValue = { notesInput = TextFieldValue("") },
                 verticalAlignment = Alignment.Top,
                 singleLine = false,
                 keyboardActions = KeyboardActions(onDone = {
@@ -307,6 +304,8 @@ fun CreateCredentialScreen(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.Text
                 ),
+                correct = uiState.isNoteValid ?: false,
+                error = uiState.isNoteValid?.not() ?: false
             )
         }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.brisson.protekt.AppDestinationsArgs.ITEM_ID_ARGS
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.domain.model.Result
 import me.brisson.protekt.domain.repository.ItemRepository
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class CreateCredentialViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = itemRepository.getItemById(itemId)) {
                 is Result.Success -> {
-                    (result.data as Credential).let {  credential ->
+                    (result.data as Credential).let { credential ->
                         _uiState.update {
                             it.copy(loading = false, credential = credential)
                         }
@@ -50,7 +51,52 @@ class CreateCredentialViewModel @Inject constructor(
     }
 
     fun validateUrl(url: String) {
-        // TODO: validate properly
-        _uiState.update { it.copy(urlCorrect = true, urlError = false) }
+        val regex =
+            "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]".toRegex()
+
+        url.ifEmpty {
+            _uiState.update { it.copy(isUrlValid = null) }
+            return
+        }
+
+        val isValid = url.matches(regex)
+        _uiState.update { it.copy(isUrlValid = isValid) }
+    }
+
+    fun validateName(name: String) {
+        name.ifEmpty {
+            _uiState.update { it.copy(isNameValid = null) }
+            return
+        }
+
+        _uiState.update { it.copy(isNameValid = true) }
+    }
+
+    fun validateUsername(username: String) {
+        username.ifEmpty {
+            _uiState.update { it.copy(isUsernameValid = null) }
+            return
+        }
+
+        _uiState.update { it.copy(isUsernameValid = true) }
+    }
+
+    fun validatePassword(password: Password) {
+        password.value.ifEmpty {
+            _uiState.update { it.copy(isPasswordValid = null) }
+            return
+        }
+
+        val isValid = password.calculatePasswordSafety() >= .8F
+        _uiState.update { it.copy(isPasswordValid = isValid) }
+    }
+
+    fun validateNote(note: String) {
+        note.ifEmpty {
+            _uiState.update { it.copy(isNoteValid = null) }
+            return
+        }
+
+        _uiState.update { it.copy(isNoteValid = true) }
     }
 }
