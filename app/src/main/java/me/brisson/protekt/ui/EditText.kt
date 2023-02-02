@@ -40,19 +40,21 @@ fun EditText(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     onClearValue: () -> Unit,
-    onLoseFocus: (() -> Unit)? = null,
+    onFocus: ((hasFocus: Boolean) -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    singleLine: Boolean = true,
     enabled: Boolean = true,
     error: Boolean = false,
     correct: Boolean = false,
     label: (@Composable RowScope.() -> Unit)? = null,
     trailingComponent: (@Composable RowScope.() -> Unit)? = null,
 ) {
-
     var isFocused by remember { mutableStateOf(false) }
+
+
     val componentHeight = 50.dp
 
     BasicTextField(
@@ -60,9 +62,7 @@ fun EditText(
             .height(componentHeight)
             .onFocusChanged {
                 isFocused = it.isFocused
-                if (!it.isFocused) {
-                    onLoseFocus?.invoke()
-                }
+                onFocus?.invoke(it.hasFocus)
             },
         value = value,
         onValueChange = onValueChange,
@@ -71,7 +71,7 @@ fun EditText(
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium
         ),
-        singleLine = true,
+        singleLine = singleLine,
         enabled = enabled,
         visualTransformation = visualTransformation,
         keyboardActions = keyboardActions,
@@ -114,8 +114,9 @@ fun EditText(
                 Row(
                     modifier = Modifier
                         .weight(1f)
+                        .padding(vertical = 4.dp)
                         .fillMaxHeight(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = verticalAlignment,
                 ) {
                     if (value.text.isNotEmpty() || isFocused) {
                         innerTextField()
@@ -126,7 +127,7 @@ fun EditText(
 
                 Row(
                     modifier = Modifier.fillMaxHeight(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = verticalAlignment
                 ) {
                     trailingComponent?.let { it() }
                     if (isFocused) {

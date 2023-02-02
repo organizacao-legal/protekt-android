@@ -7,6 +7,7 @@
     <string name="copy">Copy</string>
     <string name="cancel">Cancel</string>
     <string name="use">Use</string>
+    <string name="save">Save</string>
     <string name="generate_password">Generate Password</string>
     <string name="delete_item_dialog_title">Delete item</string>
     <string name="delete_item_dialog_text">Are you sure you want to remove this item from your account?</string>

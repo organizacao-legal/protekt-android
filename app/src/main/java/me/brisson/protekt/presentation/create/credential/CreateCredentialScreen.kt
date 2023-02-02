@@ -1,5 +1,8 @@
 package me.brisson.protekt.presentation.create.credential
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -50,6 +53,9 @@ fun CreateCredentialScreen(
     var nameInput by remember { mutableStateOf(TextFieldValue("")) }
     var usernameInput by remember { mutableStateOf(TextFieldValue("")) }
     var passwordInput by remember { mutableStateOf(TextFieldValue("")) }
+    var notesInput by remember { mutableStateOf(TextFieldValue("")) }
+
+    var passwordEditTextHasFocus by remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = modifier
@@ -224,6 +230,7 @@ fun CreateCredentialScreen(
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 8.dp),
+                    onFocus = { passwordEditTextHasFocus = it },
                     trailingComponent = {
                         IconButton(onClick = { showPassword = !showPassword }) {
                             Icon(
@@ -261,10 +268,60 @@ fun CreateCredentialScreen(
                 password = Password(passwordInput.text)
             )
 
-            PasswordSafetyIndicator(
-                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 8.dp),
-                password = Password(passwordInput.text)
+            AnimatedVisibility(
+                visible = passwordEditTextHasFocus,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                PasswordSafetyIndicator(
+                    modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 8.dp),
+                    password = Password(passwordInput.text)
+                )
+            }
+        }
+
+        item {
+            Text(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
+                text = "Notes",
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
             )
+
+            EditText(
+                value = notesInput,
+                onValueChange = { notesInput = it },
+                onClearValue = { notesInput = TextFieldValue("") },
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .fillMaxWidth()
+                    .height(130.dp),
+                verticalAlignment = Alignment.Top,
+                singleLine = false,
+                keyboardActions = KeyboardActions(onDone = {
+                    focusManager.clearFocus()
+                }),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Text
+                ),
+            )
+        }
+
+        item {
+            AppButton(modifier = Modifier
+                .padding(24.dp)
+                .fillMaxWidth(),
+                onClick = { /*TODO*/ }
+            ) {
+                Text(
+                    text = stringResource(id = R.string.save),
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
     }
 }
