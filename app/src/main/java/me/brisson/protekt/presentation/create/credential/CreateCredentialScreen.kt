@@ -3,6 +3,8 @@ package me.brisson.protekt.presentation.create.credential
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.Refresh
@@ -14,13 +16,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,6 +45,7 @@ fun CreateCredentialScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    val focusManager = LocalFocusManager.current
     var openDialog by remember { mutableStateOf(false) }
 
     var urlInput by remember { mutableStateOf(TextFieldValue("")) }
@@ -91,7 +94,7 @@ fun CreateCredentialScreen(
             )
         }
 
-        item{
+        item {
             Text(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 32.dp),
                 text = "URL",
@@ -119,6 +122,11 @@ fun CreateCredentialScreen(
                         style = TextStyle(fontFamily = montserrat, color = DarkGray)
                     )
                 },
+                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Email
+                ),
                 correct = uiState.urlCorrect,
                 error = uiState.urlError
             )
@@ -149,6 +157,11 @@ fun CreateCredentialScreen(
                         style = TextStyle(fontFamily = montserrat, color = DarkGray)
                     )
                 },
+                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Text
+                ),
             )
         }
 
@@ -173,6 +186,12 @@ fun CreateCredentialScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp),
+
+                keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Text
+                ),
             )
         }
 
@@ -216,7 +235,16 @@ fun CreateCredentialScreen(
                             )
                         }
                     },
-                    visualTransformation = visualTransformation
+                    visualTransformation = visualTransformation,
+                    keyboardActions = KeyboardActions(onNext = {
+                        focusManager.moveFocus(
+                            FocusDirection.Next
+                        )
+                    }),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Password
+                    ),
                 )
 
                 AppButtonOutlined(

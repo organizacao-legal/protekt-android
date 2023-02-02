@@ -137,6 +137,7 @@ fun EditText(
                             Icon(
                                 modifier = Modifier.size(18.dp),
                                 imageVector = Icons.Rounded.Close,
+                                tint = DarkGray,
                                 contentDescription = stringResource(id = R.string.icon_clear_content_description)
                             )
                         }
