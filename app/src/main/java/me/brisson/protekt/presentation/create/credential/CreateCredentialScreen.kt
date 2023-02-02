@@ -2,6 +2,7 @@ package me.brisson.protekt.presentation.create.credential
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.Refresh
@@ -49,173 +50,187 @@ fun CreateCredentialScreen(
     var usernameInput by remember { mutableStateOf(TextFieldValue("")) }
     var passwordInput by remember { mutableStateOf(TextFieldValue("")) }
 
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        if (openDialog) {
-            BottomSheet(onDismissRequest = { openDialog = false }) {
-                GeneratePasswordBottomSheet(
-                    onUse = { password ->
-                        passwordInput = TextFieldValue(password.value)
-                        openDialog = false
-                    },
-                    onCancel = { openDialog = false }
+        item {
+            if (openDialog) {
+                BottomSheet(onDismissRequest = { openDialog = false }) {
+                    GeneratePasswordBottomSheet(
+                        onUse = { password ->
+                            passwordInput = TextFieldValue(password.value)
+                            openDialog = false
+                        },
+                        onCancel = { openDialog = false }
+                    )
+                }
+            }
+        }
+
+        item {
+            IconButton(modifier = Modifier.padding(start = 12.dp, top = 5.dp), onClick = onBack) {
+                Icon(
+                    imageVector = Icons.Rounded.ArrowBackIos,
+                    contentDescription = stringResource(id = R.string.icon_arrow_back_content_description)
                 )
             }
         }
 
-        IconButton(modifier = Modifier.padding(start = 12.dp, top = 5.dp), onClick = onBack) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBackIos,
-                contentDescription = stringResource(id = R.string.icon_arrow_back_content_description)
+        item {
+            Text(
+                modifier = Modifier.padding(start = 24.dp, top = 24.dp),
+                text = stringResource(id = R.string.credentials),
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
             )
         }
 
-        Text(
-            modifier = Modifier.padding(start = 24.dp, top = 24.dp),
-            text = stringResource(id = R.string.credentials),
-            style = TextStyle(
-                fontFamily = montserrat,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-        )
-
-
-        Text(
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 32.dp),
-            text = "URL",
-            style = TextStyle(
-                fontFamily = montserrat,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        )
-
-        EditText(
-            value = urlInput,
-            onValueChange = {
-                urlInput = it
-                viewModel.validateUrl(it.text)
-            },
-            onClearValue = { urlInput = TextFieldValue("") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp),
-            label = {
-                Text(
-                    text = "ex. http://google.com",
-                    style = TextStyle(fontFamily = montserrat, color = DarkGray)
+        item{
+            Text(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 32.dp),
+                text = "URL",
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onBackground
                 )
-            },
-            correct = uiState.urlCorrect,
-            error = uiState.urlError
-        )
-
-        Text(
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
-            text = "Name",
-            style = TextStyle(
-                fontFamily = montserrat,
-                color = MaterialTheme.colorScheme.onBackground
             )
-        )
-        EditText(
-            value = nameInput,
-            onValueChange = {
-                nameInput = it
-                viewModel.validateUrl(it.text)
-            },
-            onClearValue = { nameInput = TextFieldValue("") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp),
-            label = {
-                Text(
-                    text = "ex. Google",
-                    style = TextStyle(fontFamily = montserrat, color = DarkGray)
-                )
-            },
-        )
+        }
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 24.dp, end = 24.dp, top = 16.dp),
-            text = "Username",
-            style = TextStyle(
-                fontFamily = montserrat,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        )
-        EditText(
-            value = usernameInput,
-            onValueChange = {
-                usernameInput = it
-                viewModel.validateUrl(it.text)
-            },
-            onClearValue = { usernameInput = TextFieldValue("") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp),
-        )
-
-        Text(
-            modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
-            text = "Password",
-            style = TextStyle(
-                fontFamily = montserrat,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        )
-        Row(
-            modifier = Modifier.padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            var showPassword by remember { mutableStateOf(false) }
-            val trailingIconId = if (showPassword) R.drawable.ic_eye else R.drawable.ic_eye_off
-            val visualTransformation = if (showPassword) {
-                VisualTransformation.None
-            } else {
-                PasswordVisualTransformation()
-            }
-
+        item {
             EditText(
-                value = passwordInput,
+                value = urlInput,
                 onValueChange = {
-                    passwordInput = it
+                    urlInput = it
                     viewModel.validateUrl(it.text)
                 },
-                onClearValue = { passwordInput = TextFieldValue("") },
+                onClearValue = { urlInput = TextFieldValue("") },
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(end = 8.dp),
-                trailingComponent = {
-                    IconButton(onClick = { showPassword = !showPassword }) {
-                        Icon(
-                            painter = painterResource(id = trailingIconId),
-                            contentDescription = stringResource(id = R.string.icon_toggle_eye_content_description)
-                        )
-                    }
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                label = {
+                    Text(
+                        text = "ex. http://google.com",
+                        style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                    )
                 },
-                visualTransformation = visualTransformation
+                correct = uiState.urlCorrect,
+                error = uiState.urlError
             )
-
-            AppButtonOutlined(
-                modifier = Modifier,
-                onClick = { openDialog = true }
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Refresh,
-                    contentDescription = stringResource(id = R.string.icon_refresh_content_description),
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
-
         }
 
+        item {
+            Text(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
+                text = "Name",
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            )
+            EditText(
+                value = nameInput,
+                onValueChange = {
+                    nameInput = it
+                    viewModel.validateUrl(it.text)
+                },
+                onClearValue = { nameInput = TextFieldValue("") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                label = {
+                    Text(
+                        text = "ex. Google",
+                        style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                    )
+                },
+            )
+        }
+
+        item {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 24.dp, end = 24.dp, top = 16.dp),
+                text = "Username",
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            )
+            EditText(
+                value = usernameInput,
+                onValueChange = {
+                    usernameInput = it
+                    viewModel.validateUrl(it.text)
+                },
+                onClearValue = { usernameInput = TextFieldValue("") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+            )
+        }
+
+        item {
+            Text(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
+                text = "Password",
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            )
+            Row(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                var showPassword by remember { mutableStateOf(false) }
+                val trailingIconId = if (showPassword) R.drawable.ic_eye else R.drawable.ic_eye_off
+                val visualTransformation = if (showPassword) {
+                    VisualTransformation.None
+                } else {
+                    PasswordVisualTransformation()
+                }
+
+                EditText(
+                    value = passwordInput,
+                    onValueChange = {
+                        passwordInput = it
+                        viewModel.validateUrl(it.text)
+                    },
+                    onClearValue = { passwordInput = TextFieldValue("") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp),
+                    trailingComponent = {
+                        IconButton(onClick = { showPassword = !showPassword }) {
+                            Icon(
+                                painter = painterResource(id = trailingIconId),
+                                tint = DarkGray,
+                                contentDescription = stringResource(id = R.string.icon_toggle_eye_content_description)
+                            )
+                        }
+                    },
+                    visualTransformation = visualTransformation
+                )
+
+                AppButtonOutlined(
+                    modifier = Modifier,
+                    onClick = { openDialog = true }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Refresh,
+                        contentDescription = stringResource(id = R.string.icon_refresh_content_description),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+        }
     }
 }
 

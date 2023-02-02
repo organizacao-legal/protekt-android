@@ -107,21 +107,23 @@ fun EditText(
                         shape = RoundedCornerShape(4.dp)
                     )
                     .background(backgroundColor)
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .width(IntrinsicSize.Max),
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
                 verticalAlignment = verticalAlignment,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                if (value.text.isNotEmpty() || isFocused) {
-                    innerTextField()
-                } else {
-                    label?.let { it() }
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (value.text.isNotEmpty() || isFocused) {
+                        innerTextField()
+                    } else {
+                        label?.let { it() }
+                    }
                 }
 
-                // just to count as a component so the 'SpaceBetween' row arrangement works
-                Spacer(Modifier.fillMaxHeight())
-
-                // row for end components
                 Row(
                     modifier = Modifier.fillMaxHeight(),
                     verticalAlignment = Alignment.CenterVertically
@@ -143,6 +145,7 @@ fun EditText(
                             modifier = Modifier
                                 .padding(horizontal = 6.dp)
                                 .size(18.dp),
+                            tint = Green,
                             imageVector = Icons.Rounded.Check,
                             contentDescription = stringResource(id = R.string.icon_check_content_description)
                         )
