@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
+import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.ui.AppButton
 import me.brisson.protekt.ui.AppButtonOutlined
 import me.brisson.protekt.ui.EditText
@@ -151,7 +152,7 @@ fun CredentialDetails(
                         modifier = Modifier.size(24.dp),
                         tint = DarkGray,
                         imageVector = Icons.Rounded.ContentCopy,
-                        contentDescription = null
+                        contentDescription = stringResource(id = R.string.icon_copy_content_description)
                     )
                 }
             }
@@ -207,7 +208,7 @@ fun CredentialDetails(
                         modifier = Modifier.size(36.dp),
                         onClick = {
                             Toast.makeText(context, "Password copied", Toast.LENGTH_SHORT).show()
-                            localClipboardManager.setText(AnnotatedString(credential.password))
+                            localClipboardManager.setText(AnnotatedString(credential.password.value))
                         }
                     ) {
                         Icon(
@@ -221,7 +222,7 @@ fun CredentialDetails(
             }
         )
 
-        PasswordSafetyLinearIndicator(percentage = credential.calculatePasswordSafety())
+        PasswordSafetyLinearIndicator(percentage = credential.password.calculatePasswordSafety())
 
         Text(
             modifier = Modifier.padding(top = 32.dp),
@@ -422,7 +423,7 @@ fun PreviewCredentialDetails() {
                 image = "https://logo.clearbit.com/https://twitter.com",
                 name = "Twitter",
                 username = "@JonDoe",
-                password = "@a123",
+                password = Password("@a123"),
                 url = "http://twitter.com"
             )
         )

@@ -28,8 +28,8 @@ fun AppButton(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
             .background(color = buttonColor)
-            .padding(vertical = 12.dp, horizontal = 16.dp)
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .padding(vertical = 12.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         content = content
@@ -50,8 +50,9 @@ fun AppButtonOutlined(
                 color = borderColor,
                 shape = RoundedCornerShape(4.dp)
             )
+            .clickable { onClick() }
             .padding(vertical = 12.dp, horizontal = 16.dp)
-            .clickable { onClick() },
+            ,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         content = content
@@ -64,13 +65,12 @@ fun AppButtonOutlined(
 fun PreviewAppButton() {
     ProteKTTheme {
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             AppButtonOutlined(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 12.dp),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { }
             ) {
                 Text(
@@ -80,9 +80,7 @@ fun PreviewAppButton() {
                 )
             }
             AppButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 24.dp),
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { }
             ) {
                 Text(

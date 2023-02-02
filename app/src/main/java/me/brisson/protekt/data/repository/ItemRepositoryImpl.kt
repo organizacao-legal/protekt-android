@@ -2,6 +2,7 @@ package me.brisson.protekt.data.repository
 
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
+import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.domain.model.Result
 import me.brisson.protekt.domain.repository.ItemRepository
 
@@ -26,13 +27,13 @@ val mockedItemList = listOf<Item>(
         image = "https://logo.clearbit.com/https://twitter.com",
         name = "Twitter",
         username = "@JonDoe",
-        password = "@Aa12345",
+        password = Password("@Aa12345"),
         url = "http://twitter.com"
     ),
     Credential(
         name = "Twitter",
         username = "@JonDoe",
-        password = "123",
+        password = Password("123"),
         url = "http://twitter.com"
     )
 )

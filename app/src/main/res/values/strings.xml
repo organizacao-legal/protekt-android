@@ -3,6 +3,11 @@
     <string name="my_vault">My vault</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="reload">Reload</string>
+    <string name="copy">Copy</string>
+    <string name="cancel">Cancel</string>
+    <string name="use">Use</string>
+    <string name="generate_password">Generate Password</string>
     <string name="delete_item_dialog_title">Delete item</string>
     <string name="delete_item_dialog_text">Are you sure you want to remove this item from your account?</string>
     <string name="delete_item_dialog_cancel_button">No, keep it</string>
@@ -24,6 +29,9 @@
     <string name="icon_check_content_description">Check icon</string>
     <string name="icon_add_content_description">Add icon</string>
     <string name="icon_edit_content_description">Edit icon</string>
+    <string name="icon_refresh_content_description">Refresh icon</string>
+    <string name="icon_copy_content_description">Copy icon</string>
+    <string name="icon_toggle_eye_content_description">Toggle eye on/off</string>
     <string name="app_image_logo_content_description">App logo</string>
     <string name="credential_image_content_description">%s credential logo</string>
 

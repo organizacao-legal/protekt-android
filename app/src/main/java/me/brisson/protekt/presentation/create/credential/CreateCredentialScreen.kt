@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,11 +26,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
 import me.brisson.protekt.ui.AppButtonOutlined
+import me.brisson.protekt.ui.BottomSheet
 import me.brisson.protekt.ui.EditText
+import me.brisson.protekt.ui.GeneratePasswordBottomSheet
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
 
+@ExperimentalComposeUiApi
 @Composable
 fun CreateCredentialScreen(
     modifier: Modifier = Modifier,
@@ -37,6 +41,8 @@ fun CreateCredentialScreen(
     onBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    var openDialog by remember { mutableStateOf(false) }
 
     var urlInput by remember { mutableStateOf(TextFieldValue("")) }
     var nameInput by remember { mutableStateOf(TextFieldValue("")) }
@@ -48,6 +54,18 @@ fun CreateCredentialScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
+        if (openDialog) {
+            BottomSheet(onDismissRequest = { openDialog = false }) {
+                GeneratePasswordBottomSheet(
+                    onUse = { password ->
+                        passwordInput = TextFieldValue(password.value)
+                        openDialog = false
+                    },
+                    onCancel = { openDialog = false }
+                )
+            }
+        }
+
         IconButton(modifier = Modifier.padding(start = 12.dp, top = 5.dp), onClick = onBack) {
             Icon(
                 imageVector = Icons.Rounded.ArrowBackIos,
@@ -178,7 +196,7 @@ fun CreateCredentialScreen(
                     IconButton(onClick = { showPassword = !showPassword }) {
                         Icon(
                             painter = painterResource(id = trailingIconId),
-                            contentDescription = null
+                            contentDescription = stringResource(id = R.string.icon_toggle_eye_content_description)
                         )
                     }
                 },
@@ -187,11 +205,11 @@ fun CreateCredentialScreen(
 
             AppButtonOutlined(
                 modifier = Modifier,
-                onClick = { /*todo*/ }
+                onClick = { openDialog = true }
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Refresh,
-                    contentDescription = null,
+                    contentDescription = stringResource(id = R.string.icon_refresh_content_description),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
@@ -201,6 +219,7 @@ fun CreateCredentialScreen(
     }
 }
 
+@ExperimentalComposeUiApi
 @Preview
 @Composable
 fun CreateCredentialScreenPreview() {

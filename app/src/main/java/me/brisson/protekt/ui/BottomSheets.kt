@@ -13,8 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -32,6 +31,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Item
+import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.ui.theme.LightGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
@@ -121,6 +121,71 @@ fun CreateItemBottomSheet(
 }
 
 @Composable
+fun GeneratePasswordBottomSheet(
+    modifier: Modifier = Modifier,
+    onCancel: () -> Unit,
+    onUse: (password: Password) -> Unit,
+) {
+    var generatedPassword by remember{ mutableStateOf(Password("")) }
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(bottom = 30.dp)
+            .clip(RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            modifier = Modifier.padding(top = 18.dp, bottom = 20.dp),
+            style = TextStyle(
+                fontFamily = montserrat,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            ),
+            text = stringResource(id = R.string.generate_password)
+        )
+        GeneratePassword(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            onPasswordGenerated = { generatedPassword = it }
+        )
+        Row(
+            modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 36.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            AppButtonOutlined(
+                modifier = Modifier.weight(1f),
+                onClick = onCancel
+            ) {
+                Text(
+                    text = stringResource(id = R.string.cancel),
+                    style = TextStyle(
+                        fontFamily = montserrat,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                )
+            }
+
+            AppButton(
+                modifier = Modifier.weight(1f),
+                onClick = { onUse(generatedPassword) }
+            ) {
+                Text(
+                    stringResource(id = R.string.use),
+                    style = TextStyle(
+                        fontFamily = montserrat,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun CreateItemBottomSheetItem(
     modifier: Modifier = Modifier,
     type: Item.Type,
@@ -156,8 +221,16 @@ fun CreateItemBottomSheetItem(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewCreateItemBottomSheetItemPreview() {
+fun PreviewCreateItemBottomSheet() {
     ProteKTTheme {
         CreateItemBottomSheet(modifier = Modifier, onType = { })
+    }
+}
+
+@Preview
+@Composable
+fun PreviewGeneratePasswordBottomSheet() {
+    ProteKTTheme {
+        GeneratePasswordBottomSheet(onCancel = { }, onUse = { })
     }
 }
