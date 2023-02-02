@@ -222,7 +222,7 @@ fun CredentialDetails(
             }
         )
 
-        PasswordSafetyLinearIndicator(percentage = credential.password.calculatePasswordSafety())
+        PasswordSafetyLinearIndicator(password = credential.password)
 
         Text(
             modifier = Modifier.padding(top = 32.dp),

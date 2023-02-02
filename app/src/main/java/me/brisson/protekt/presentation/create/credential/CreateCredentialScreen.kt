@@ -28,10 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
-import me.brisson.protekt.ui.AppButtonOutlined
-import me.brisson.protekt.ui.BottomSheet
-import me.brisson.protekt.ui.EditText
-import me.brisson.protekt.ui.GeneratePasswordBottomSheet
+import me.brisson.protekt.domain.model.Password
+import me.brisson.protekt.ui.*
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
@@ -258,6 +256,15 @@ fun CreateCredentialScreen(
                     )
                 }
             }
+            PasswordSafetyLinearIndicator(
+                modifier = Modifier.padding(horizontal = 24.dp),
+                password = Password(passwordInput.text)
+            )
+
+            PasswordSafetyIndicator(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 8.dp),
+                password = Password(passwordInput.text)
+            )
         }
     }
 }
