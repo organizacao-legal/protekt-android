@@ -68,7 +68,7 @@ fun AppNavGraph(
             arguments = listOf(navArgument(ITEM_ID_ARGS) { defaultValue = "" })
         ) {
             CreateCredentialScreen(
-                onBack = { navController.popBackStack() }
+                onBack = { navController.navigateUp() }
             )
         }
     }

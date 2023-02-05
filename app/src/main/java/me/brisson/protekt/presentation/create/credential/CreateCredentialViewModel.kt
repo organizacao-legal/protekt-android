@@ -50,6 +50,27 @@ class CreateCredentialViewModel @Inject constructor(
         }
     }
 
+    fun createCredential(credential: Credential) {
+        _uiState.update { it.copy(postCredentialLoading = true) }
+        viewModelScope.launch {
+            when (val result = itemRepository.postItem(credential)) {
+                is Result.Success -> {
+                    (result.data as Credential).let {credential ->
+                        _uiState.update {
+                            it.copy(postCredentialLoading = false, postCredentialSuccess = credential)
+                        }
+                    }
+                }
+
+                is Result.Error -> {
+                    _uiState.update {
+                        it.copy(postCredentialLoading = false, postCredentialError = result.exception)
+                    }
+                }
+            }
+        }
+    }
+
     fun validateUrl(url: String) {
         val regex =
             "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]".toRegex()

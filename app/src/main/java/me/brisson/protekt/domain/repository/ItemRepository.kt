@@ -7,4 +7,5 @@ interface ItemRepository {
 
     suspend fun getItemById(itemId: String): Result<Item>
     suspend fun getAllItems() : Result<List<Item>>
+    suspend fun postItem(item: Item) : Result<Item>
 }

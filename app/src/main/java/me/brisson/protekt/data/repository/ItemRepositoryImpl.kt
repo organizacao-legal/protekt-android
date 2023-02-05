@@ -20,9 +20,18 @@ class ItemRepositoryImpl : ItemRepository {
     override suspend fun getAllItems(): Result<List<Item>> {
         return Result.Success(mockedItemList)
     }
+
+    override suspend fun postItem(item: Item): Result<Item> {
+        return try {
+            mockedItemList.add(item)
+            Result.Success(item)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }
 
-val mockedItemList = listOf<Item>(
+var mockedItemList = arrayListOf<Item>(
     Credential(
         image = "https://logo.clearbit.com/https://twitter.com",
         name = "Twitter",

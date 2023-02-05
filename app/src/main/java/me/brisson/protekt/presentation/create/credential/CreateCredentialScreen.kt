@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
+import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.ui.*
 import me.brisson.protekt.ui.theme.DarkGray
@@ -56,6 +57,9 @@ fun CreateCredentialScreen(
     var notesInput by remember { mutableStateOf(TextFieldValue("")) }
 
     var passwordEditTextHasFocus by remember { mutableStateOf(false) }
+
+
+    uiState.postCredentialSuccess?.let { _ -> onBack() }
 
     LazyColumn(
         modifier = modifier
@@ -313,7 +317,13 @@ fun CreateCredentialScreen(
             AppButton(modifier = Modifier
                 .padding(24.dp)
                 .fillMaxWidth(),
-                onClick = { /*TODO*/ }
+                onClick = { viewModel.createCredential(Credential(
+                    url = urlInput.text,
+                    name = nameInput.text,
+                    username = usernameInput.text,
+                    password = Password(passwordInput.text),
+                    note = notesInput.text
+                )) }
             ) {
                 Text(
                     text = stringResource(id = R.string.save),
