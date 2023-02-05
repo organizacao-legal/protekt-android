@@ -46,15 +46,16 @@ fun CreateCredentialScreen(
     onBack: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val credential = uiState.credential
 
     val focusManager = LocalFocusManager.current
     var openDialog by remember { mutableStateOf(false) }
 
-    var urlInput by remember { mutableStateOf(TextFieldValue("")) }
-    var nameInput by remember { mutableStateOf(TextFieldValue("")) }
-    var usernameInput by remember { mutableStateOf(TextFieldValue("")) }
-    var passwordInput by remember { mutableStateOf(TextFieldValue("")) }
-    var notesInput by remember { mutableStateOf(TextFieldValue("")) }
+    var urlInput by remember { mutableStateOf(TextFieldValue(credential?.url ?: "")) }
+    var nameInput by remember { mutableStateOf(TextFieldValue(credential?.name ?: "")) }
+    var usernameInput by remember { mutableStateOf(TextFieldValue(credential?.username ?:"")) }
+    var passwordInput by remember { mutableStateOf(TextFieldValue(credential?.password?.value ?: "")) }
+    var notesInput by remember { mutableStateOf(TextFieldValue(credential?.note ?: "")) }
 
     var passwordEditTextHasFocus by remember { mutableStateOf(false) }
 
@@ -333,6 +334,7 @@ fun CreateCredentialScreen(
             AppButton(modifier = Modifier
                 .padding(24.dp)
                 .fillMaxWidth(),
+                //todo: consider 'credential' if not null
                 onClick = { viewModel.createCredential(Credential(
                     url = urlInput.text,
                     name = nameInput.text,

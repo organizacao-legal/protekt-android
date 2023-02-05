@@ -23,7 +23,13 @@ class ItemRepositoryImpl : ItemRepository {
 
     override suspend fun postItem(item: Item): Result<Item> {
         return try {
-            mockedItemList.add(item)
+            val existingItem = mockedItemList.find { it.id == item.id }
+            if (existingItem != null) {
+                mockedItemList.set( index = mockedItemList.indexOf(existingItem), item)
+            } else {
+                mockedItemList.add(item)
+            }
+
             Result.Success(item)
         } catch (e: Exception) {
             Result.Error(e)
@@ -31,7 +37,7 @@ class ItemRepositoryImpl : ItemRepository {
     }
 }
 
-var mockedItemList = arrayListOf<Item>(
+var mockedItemList = mutableListOf<Item>(
     Credential(
         image = "https://logo.clearbit.com/https://twitter.com",
         name = "Twitter",
