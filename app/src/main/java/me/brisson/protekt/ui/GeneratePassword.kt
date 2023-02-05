@@ -1,6 +1,7 @@
 package me.brisson.protekt.ui
 
 import android.widget.Toast
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -52,18 +53,20 @@ fun GeneratePassword(
             .padding(horizontal = 0.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            modifier = Modifier.padding(vertical = 30.dp, horizontal = 18.dp),
-            text = getAnnotatedString(
-                password.value.toCharArray(),
-                SpanStyle(color = MaterialTheme.colorScheme.primary)
-            ),
-            style = TextStyle(
-                fontFamily = montserrat,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium
+        Crossfade(targetState = password) {
+            Text(
+                modifier = Modifier.padding(vertical = 30.dp, horizontal = 18.dp),
+                text = getAnnotatedString(
+                    it.value.toCharArray(),
+                    SpanStyle(color = MaterialTheme.colorScheme.primary)
+                ),
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium
+                )
             )
-        )
+        }
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
