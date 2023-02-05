@@ -58,7 +58,6 @@ fun CreateCredentialScreen(
 
     var passwordEditTextHasFocus by remember { mutableStateOf(false) }
 
-
     uiState.postCredentialSuccess?.let { _ -> onBack() }
 
     LazyColumn(
@@ -100,12 +99,23 @@ fun CreateCredentialScreen(
                     fontWeight = FontWeight.SemiBold
                 )
             )
+
+            Text(
+                modifier = Modifier.padding(start = 24.dp, top = 8.dp),
+                text = "* items are mandatory",
+                style = TextStyle(
+                    fontFamily = montserrat,
+                    color = DarkGray,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            )
         }
 
         item {
             Text(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 32.dp),
-                text = "URL",
+                text = stringResource(id = R.string.url) ,
                 style = TextStyle(
                     fontFamily = montserrat,
                     color = MaterialTheme.colorScheme.onBackground
@@ -121,7 +131,7 @@ fun CreateCredentialScreen(
                 onClearValue = { urlInput = TextFieldValue("") },
                 label = {
                     Text(
-                        text = "ex. http://google.com",
+                        text = stringResource(id = R.string.url_label),
                         style = TextStyle(fontFamily = montserrat, color = DarkGray)
                     )
                 },
@@ -138,7 +148,7 @@ fun CreateCredentialScreen(
         item {
             Text(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
-                text = "Name",
+                text = stringResource(id = R.string.name),
                 style = TextStyle(
                     fontFamily = montserrat,
                     color = MaterialTheme.colorScheme.onBackground
@@ -154,7 +164,7 @@ fun CreateCredentialScreen(
                 onClearValue = { nameInput = TextFieldValue("") },
                 label = {
                     Text(
-                        text = "ex. Google",
+                        text = stringResource(id = R.string.name_label),
                         style = TextStyle(fontFamily = montserrat, color = DarkGray)
                     )
                 },
@@ -173,7 +183,7 @@ fun CreateCredentialScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 24.dp, end = 24.dp, top = 16.dp),
-                text = "Username",
+                text = stringResource(id = R.string.username),
                 style = TextStyle(
                     fontFamily = montserrat,
                     color = MaterialTheme.colorScheme.onBackground
@@ -187,6 +197,12 @@ fun CreateCredentialScreen(
                 onValueChange = { usernameInput = it },
                 onClearValue = { usernameInput = TextFieldValue("") },
                 onFocus = { if (!it) viewModel.validateUsername(usernameInput.text) },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.username_label),
+                        style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                    )
+                },
                 keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
@@ -200,7 +216,7 @@ fun CreateCredentialScreen(
         item {
             Text(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
-                text = "Password",
+                text = stringResource(id = R.string.password),
                 style = TextStyle(
                     fontFamily = montserrat,
                     color = MaterialTheme.colorScheme.onBackground
@@ -283,7 +299,7 @@ fun CreateCredentialScreen(
         item {
             Text(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
-                text = "Notes",
+                text = stringResource(id = R.string.notes),
                 style = TextStyle(
                     fontFamily = montserrat,
                     color = MaterialTheme.colorScheme.onBackground

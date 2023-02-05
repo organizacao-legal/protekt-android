@@ -51,6 +51,21 @@ class CreateCredentialViewModel @Inject constructor(
     }
 
     fun createCredential(credential: Credential) {
+        if (credential.url.isEmpty() || credential.username.isEmpty() || credential.password.value.isEmpty()) {
+            credential.url.ifEmpty {
+                _uiState.update { it.copy(isUrlValid = false) }
+            }
+
+            credential.username.ifEmpty {
+                _uiState.update { it.copy(isUsernameValid = false) }
+            }
+
+            credential.password.value.ifEmpty {
+                _uiState.update { it.copy(isPasswordValid = false) }
+            }
+            return
+        }
+
         _uiState.update { it.copy(postCredentialLoading = true) }
         viewModelScope.launch {
             when (val result = itemRepository.postItem(credential)) {

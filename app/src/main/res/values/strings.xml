@@ -8,12 +8,21 @@
     <string name="cancel">Cancel</string>
     <string name="use">Use</string>
     <string name="save">Save</string>
+    <string name="url">URL*</string>
+    <string name="url_label">ex. http://gmail.com</string>
+    <string name="name">Name</string>
+    <string name="name_label">ex. Google</string>
+    <string name="username">Username*</string>
+    <string name="username_label">jondoe@gmail.com</string>
+    <string name="password">Password*</string>
+    <string name="notes">Notes</string>
     <string name="generate_password">Generate Password</string>
+    <string name="create_item_bottom_sheet_title">Choose a type</string>
+    <!--  delete item dialog  -->
     <string name="delete_item_dialog_title">Delete item</string>
     <string name="delete_item_dialog_text">Are you sure you want to remove this item from your account?</string>
     <string name="delete_item_dialog_cancel_button">No, keep it</string>
     <string name="delete_item_dialog_delete_button">Yes, delete it</string>
-    <string name="create_item_bottom_sheet_title">Choose a type</string>
 
     <!--  Content description  -->
     <string name="item_list_empty_state_image_content_description">Empty list image</string>
