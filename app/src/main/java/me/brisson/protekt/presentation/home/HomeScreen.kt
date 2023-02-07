@@ -33,7 +33,8 @@ import me.brisson.protekt.ui.theme.montserrat
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
-    onItem: (itemId: String) -> Unit
+    onItem: (itemId: String) -> Unit,
+    onCreate: (itemType: Item.Type) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var openDialog by remember { mutableStateOf(false) }
@@ -60,12 +61,7 @@ fun HomeScreen(
             ) {
                 CreateItemBottomSheet(
                     onType = { type ->
-                        when(type) {
-                            Item.Type.CREDENTIALS -> { }
-                            Item.Type.CREDIT_CARDS -> { }
-                            Item.Type.SECRET_NOTES -> { }
-                            Item.Type.IDENTITIES -> { }
-                        }
+                        onCreate(type)
                         openDialog = false
                     }
                 )
@@ -140,6 +136,6 @@ fun HomeScreen(
 @Composable
 fun PreviewHomeScreen() {
     ProteKTTheme {
-        HomeScreen(onItem = { })
+        HomeScreen(onItem = { }, onCreate = { })
     }
 }

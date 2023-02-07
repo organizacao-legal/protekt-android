@@ -19,13 +19,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.brisson.protekt.R
@@ -34,32 +37,24 @@ import me.brisson.protekt.ui.theme.*
 @Composable
 fun EditText(
     modifier: Modifier = Modifier,
-    text: String? = null,
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    onClearValue: () -> Unit,
+    onFocus: ((hasFocus: Boolean) -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
+    singleLine: Boolean = true,
     enabled: Boolean = true,
     error: Boolean = false,
     correct: Boolean = false,
     label: (@Composable RowScope.() -> Unit)? = null,
     trailingComponent: (@Composable RowScope.() -> Unit)? = null,
-    onValueChange: ((input: String) -> Unit)? = null,
 ) {
-
-    var input by remember { mutableStateOf(TextFieldValue(text ?: "")) }
     var isFocused by remember { mutableStateOf(false) }
-    var state by remember {
-        mutableStateOf(
-            if (error) {
-                EditTextState.Error
-            } else if (correct) {
-                EditTextState.Correct
-            } else {
-                EditTextState.Default
-            }
-        )
-    }
+
+
     val componentHeight = 50.dp
 
     BasicTextField(
@@ -67,148 +62,100 @@ fun EditText(
             .height(componentHeight)
             .onFocusChanged {
                 isFocused = it.isFocused
-                if (isFocused && !error && !correct) {
-                    state = EditTextState.Selected
-                }
+                onFocus?.invoke(it.hasFocus)
             },
-        value = input,
-        onValueChange = { fieldValue ->
-            onValueChange?.let {
-                it(fieldValue.text)
-            }
-            input = fieldValue
-        },
+        value = value,
+        onValueChange = onValueChange,
         textStyle = TextStyle(
             fontFamily = montserrat,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium
         ),
-        singleLine = true,
+        singleLine = singleLine,
         enabled = enabled,
         visualTransformation = visualTransformation,
         keyboardActions = keyboardActions,
         keyboardOptions = keyboardOptions,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         decorationBox = { innerTextField ->
-            when (state) {
-                EditTextState.Default -> {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(LightGray)
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
-                            .height(componentHeight),
-                        verticalAlignment = verticalAlignment,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        if (input.text.isNotEmpty()) {
-                            innerTextField()
-                        } else {
-                            label?.let { it() }
-                        }
-                        if (trailingComponent != null) {
-                            trailingComponent()
-                        }
+            val backgroundColor = if (!isFocused && !error && !correct) {
+                LightGray
+            } else {
+                Color.Transparent
+            }
+
+            val borderColor =
+                if (isFocused) {
+                    LightBlue
+                } else if (error) {
+                    Red
+                } else if (correct) {
+                    Green
+                } else {
+                    Color.Transparent
+                }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(4.dp))
+                    .border(
+                        border = BorderStroke(
+                            width = 1.dp,
+                            color = borderColor
+                        ),
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                    .background(backgroundColor)
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                verticalAlignment = verticalAlignment,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = 4.dp)
+                        .fillMaxHeight(),
+                    verticalAlignment = verticalAlignment,
+                ) {
+                    if (value.text.isNotEmpty() || isFocused) {
+                        innerTextField()
+                    } else {
+                        label?.let { it() }
                     }
                 }
-                EditTextState.Selected -> {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .border(
-                                border = BorderStroke(
-                                    width = 1.dp,
-                                    color = MaterialTheme.colorScheme.primary
-                                ),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .background(MaterialTheme.colorScheme.onPrimary)
-                            .padding(start = 16.dp, end = 6.dp, top = 4.dp, bottom = 4.dp)
-                            .height(componentHeight),
-                        verticalAlignment = verticalAlignment,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        innerTextField()
-                        if (trailingComponent != null) {
-                            trailingComponent()
-                        } else {
-                            IconButton(
-                                modifier = Modifier.size(30.dp),
-                                onClick = { input = TextFieldValue("") }
-                            ) {
-                                Icon(
-                                    modifier = Modifier.size(18.dp),
-                                    imageVector = Icons.Rounded.Close,
-                                    contentDescription = stringResource(id = R.string.icon_clear_content_description)
-                                )
-                            }
-                        }
-                    }
-                }
-                EditTextState.Error -> {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .border(
-                                border = BorderStroke(
-                                    width = 1.dp,
-                                    color = MaterialTheme.colorScheme.error
-                                ),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .padding(start = 16.dp, end = 6.dp, top = 4.dp, bottom = 4.dp)
-                            .height(componentHeight),
-                        verticalAlignment = verticalAlignment,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        innerTextField()
+
+                Row(
+                    modifier = Modifier.fillMaxHeight(),
+                    verticalAlignment = verticalAlignment
+                ) {
+                    trailingComponent?.let { it() }
+                    if (isFocused) {
                         IconButton(
                             modifier = Modifier.size(30.dp),
-                            onClick = { input = TextFieldValue("") }
+                            onClick = onClearValue
                         ) {
                             Icon(
                                 modifier = Modifier.size(18.dp),
                                 imageVector = Icons.Rounded.Close,
-                                contentDescription = stringResource(id = R.string.icon_clear_content_description),
-                                tint = MaterialTheme.colorScheme.error
+                                tint = DarkGray,
+                                contentDescription = stringResource(id = R.string.icon_clear_content_description)
                             )
                         }
-                    }
-                }
-                EditTextState.Correct -> {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .border(
-                                border = BorderStroke(
-                                    width = 1.dp,
-                                    color = Green
-                                ),
-                                shape = RoundedCornerShape(4.dp)
-                            )
-                            .padding(start = 16.dp, end = 6.dp, top = 4.dp, bottom = 4.dp)
-                            .height(componentHeight),
-                        verticalAlignment = verticalAlignment,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        innerTextField()
-                        IconButton(
-                            modifier = Modifier.size(30.dp),
-                            enabled = false,
-                            onClick = { }
-                        ) {
-                            Icon(
-                                modifier = Modifier.size(18.dp),
-                                imageVector = Icons.Rounded.Check,
-                                contentDescription = stringResource(id = R.string.icon_check_content_description),
-                                tint = Green
-                            )
-                        }
+                    } else if (correct) {
+                        Icon(
+                            modifier = Modifier
+                                .padding(horizontal = 6.dp)
+                                .size(18.dp),
+                            tint = Green,
+                            imageVector = Icons.Rounded.Check,
+                            contentDescription = stringResource(id = R.string.icon_check_content_description)
+                        )
                     }
                 }
             }
         }
+
     )
 }
 
@@ -216,21 +163,73 @@ fun EditText(
 @Composable
 fun PreviewEditText() {
     ProteKTTheme {
-        EditText(
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { },
-            label = {
-                Text(
-                    text = "label",
-                    color = DarkGray,
-                    fontFamily = montserrat,
-                    fontWeight = FontWeight.Medium
-                )
-            }
-        )
-    }
-}
+        Column(Modifier.padding(20.dp)) {
+            var error by remember { mutableStateOf(false) }
+            var correct by remember { mutableStateOf(false) }
+            val focusManager = LocalFocusManager.current
+            var firstInput by remember { mutableStateOf(TextFieldValue("")) }
+            var secondInput by remember { mutableStateOf(TextFieldValue("")) }
 
-enum class EditTextState {
-    Default, Selected, Error, Correct;
+            var showPassword by remember { mutableStateOf(false) }
+            val trailingIconId = if (showPassword) R.drawable.ic_eye else R.drawable.ic_eye_off
+            val visualTransformation = if (showPassword) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            }
+
+            EditText(
+                value = firstInput,
+                onValueChange = { firstInput = it },
+                onClearValue = { firstInput = TextFieldValue("") },
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text(
+                        text = "email",
+                        color = DarkGray,
+                        fontFamily = montserrat,
+                        fontWeight = FontWeight.Medium
+                    )
+                },
+                error = error,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Next,
+                    keyboardType = KeyboardType.Email
+                ),
+                keyboardActions = KeyboardActions(onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                    error = true
+                })
+            )
+            EditText(
+                value = secondInput,
+                onValueChange = { secondInput = it },
+                onClearValue = { secondInput = TextFieldValue("") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                label = {
+
+                },
+                correct = correct,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Password
+                ),
+                keyboardActions = KeyboardActions(onDone = {
+                    focusManager.clearFocus()
+                    correct = true
+                }),
+                visualTransformation = visualTransformation,
+                trailingComponent = {
+                    IconButton(onClick = { showPassword = !showPassword }) {
+                        Icon(
+                            painter = painterResource(id = trailingIconId),
+                            contentDescription = null
+                        )
+                    }
+                }
+            )
+        }
+    }
 }

@@ -2,6 +2,7 @@ package me.brisson.protekt.data.repository
 
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
+import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.domain.model.Result
 import me.brisson.protekt.domain.repository.ItemRepository
 
@@ -19,20 +20,35 @@ class ItemRepositoryImpl : ItemRepository {
     override suspend fun getAllItems(): Result<List<Item>> {
         return Result.Success(mockedItemList)
     }
+
+    override suspend fun postItem(item: Item): Result<Item> {
+        return try {
+            val existingItem = mockedItemList.find { it.id == item.id }
+            if (existingItem != null) {
+                mockedItemList.set( index = mockedItemList.indexOf(existingItem), item)
+            } else {
+                mockedItemList.add(item)
+            }
+
+            Result.Success(item)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }
 
-val mockedItemList = listOf<Item>(
+var mockedItemList = mutableListOf<Item>(
     Credential(
         image = "https://logo.clearbit.com/https://twitter.com",
         name = "Twitter",
         username = "@JonDoe",
-        password = "@Aa12345",
+        password = Password("@Aa12345"),
         url = "http://twitter.com"
     ),
     Credential(
         name = "Twitter",
         username = "@JonDoe",
-        password = "123",
+        password = Password("123"),
         url = "http://twitter.com"
     )
 )

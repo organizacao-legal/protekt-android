@@ -22,10 +22,10 @@ class ItemDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ItemDetailUiState())
     val uiState: StateFlow<ItemDetailUiState> = _uiState.asStateFlow()
 
-    private val itemId = savedStateHandle.get<String>(ITEM_ID_ARGS)
+    private val itemId: String = checkNotNull(savedStateHandle[ITEM_ID_ARGS])
 
     init {
-        itemId?.let { id -> getItem(id) }
+        getItem(itemId)
     }
 
     private fun getItem(itemId: String) {

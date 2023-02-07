@@ -3,31 +3,57 @@
     <string name="my_vault">My vault</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="reload">Reload</string>
+    <string name="copy">Copy</string>
+    <string name="cancel">Cancel</string>
+    <string name="use">Use</string>
+    <string name="save">Save</string>
+    <string name="url">URL*</string>
+    <string name="url_label">ex. http://gmail.com</string>
+    <string name="name">Name</string>
+    <string name="name_label">ex. Google</string>
+    <string name="username">Username*</string>
+    <string name="username_label">jondoe@gmail.com</string>
+    <string name="password">Password*</string>
+    <string name="notes">Notes</string>
+    <string name="generate_password">Generate Password</string>
+    <string name="create_item_bottom_sheet_title">Choose a type</string>
+    <!--  delete item dialog  -->
     <string name="delete_item_dialog_title">Delete item</string>
     <string name="delete_item_dialog_text">Are you sure you want to remove this item from your account?</string>
     <string name="delete_item_dialog_cancel_button">No, keep it</string>
     <string name="delete_item_dialog_delete_button">Yes, delete it</string>
-    <string name="create_item_bottom_sheet_title">Choose a type</string>
 
-    <!--  Item list empty state   -->
-    <string name="item_list_empty_state_message">It\'s too quiet here.</string>
-    <string name="item_list_empty_state_action">Click here to create an item!</string>
-    
     <!--  Content description  -->
     <string name="item_list_empty_state_image_content_description">Empty list image</string>
     <string name="icon_menu_content_description">Menu icon</string>
     <string name="icon_clear_content_description">Clear icon</string>
+    <string name="icon_close_content_description">Close icon</string>
     <string name="icon_delete_content_description">Delete icon</string>
     <string name="icon_search_content_description">Search icon</string>
+    <string name="icon_warning_content_description">Warning icon</string>
     <string name="icon_arrow_forward_content_description">Arrow forward icon</string>
     <string name="icon_arrow_back_content_description">Arrow back icon</string>
     <string name="icon_check_content_description">Check icon</string>
     <string name="icon_add_content_description">Add icon</string>
     <string name="icon_edit_content_description">Edit icon</string>
+    <string name="icon_refresh_content_description">Refresh icon</string>
+    <string name="icon_copy_content_description">Copy icon</string>
+    <string name="icon_toggle_eye_content_description">Toggle eye on/off</string>
     <string name="app_image_logo_content_description">App logo</string>
     <string name="credential_image_content_description">%s credential logo</string>
 
-    
+    <!--  Item list empty state   -->
+    <string name="item_list_empty_state_message">It\'s too quiet here.</string>
+    <string name="item_list_empty_state_action">Click here to create an item!</string>
+
+    <!--  Password safety indicator item status text  -->
+    <string name="password_indicator_8_char">At least 8 characters in length</string>
+    <string name="password_indicator_should_contain">Should contain:</string>
+    <string name="password_indicator_lower_case">Lower case letters (a-z)</string>
+    <string name="password_indicator_upper_case">Upper case letters (A-Z)</string>
+    <string name="password_indicator_numeric">Numbers (0–9)</string>
+
     <!--  types   -->
     <string name="credentials">Credential</string>
     <string name="credit_cards">Credit card</string>
