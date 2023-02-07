@@ -1,4 +1,4 @@
-package me.brisson.protekt.ui
+package me.brisson.protekt.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,9 +32,10 @@ import androidx.compose.ui.window.DialogProperties
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.domain.model.Password
-import me.brisson.protekt.ui.theme.LightGray
-import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.AppButton
+import me.brisson.protekt.ui.AppButtonOutlined
+import me.brisson.protekt.ui.GeneratePassword
+import me.brisson.protekt.ui.theme.*
 
 @ExperimentalComposeUiApi
 @Composable
@@ -109,9 +110,10 @@ fun CreateItemBottomSheet(
         enumValues<Item.Type>().toList().forEach { type ->
             CreateItemBottomSheetItem(
                 modifier = Modifier.padding(
-                    vertical = 4.dp,
+                    vertical = 6.dp,
                     horizontal = 20.dp
                 ),
+                enabled = type.enabled,
                 type = type,
                 onClick = { onType(type) }
             )
@@ -126,7 +128,7 @@ fun GeneratePasswordBottomSheet(
     onCancel: () -> Unit,
     onUse: (password: Password) -> Unit,
 ) {
-    var generatedPassword by remember{ mutableStateOf(Password("")) }
+    var generatedPassword by remember { mutableStateOf(Password("")) }
 
     Column(
         modifier = modifier
@@ -189,33 +191,52 @@ fun GeneratePasswordBottomSheet(
 fun CreateItemBottomSheetItem(
     modifier: Modifier = Modifier,
     type: Item.Type,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(CircleShape)
-            .clickable { onClick() }
-            .padding(horizontal = 4.dp, vertical = 2.dp),
+            .clip(RoundedCornerShape(4.dp))
+            .clickable(enabled = enabled, onClick = onClick)
+            .padding(horizontal = 0.dp, vertical = 0.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        val mainColor = if(!enabled) MidGray else MaterialTheme.colorScheme.onBackground
+
         Box(
             modifier = Modifier
-                .clip(CircleShape)
+                .clip(RoundedCornerShape(4.dp))
                 .background(LightGray)
                 .padding(5.dp)
         ) {
             Icon(
                 painter = painterResource(id = type.drawableResId),
-                contentDescription = null
+                contentDescription = null,
+                tint = mainColor
             )
         }
 
-        Text(
-            modifier = Modifier.padding(start = 16.dp),
-            text = stringResource(id = type.stringResId),
-            style = TextStyle(fontFamily = montserrat)
-        )
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                modifier = Modifier.padding(),
+                text = stringResource(id = type.stringResId),
+                style = TextStyle(fontFamily = montserrat, color = mainColor),
+                textDecoration = if (!enabled) TextDecoration.LineThrough else TextDecoration.None
+            )
+
+            if (!enabled) {
+                Text(
+                    text = stringResource(id = R.string.coming_soon),
+                    style = TextStyle(fontFamily = montserrat, fontSize = 12.sp, color = DarkGray)
+                )
+            }
+        }
     }
 }
 

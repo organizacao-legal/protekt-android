@@ -21,8 +21,8 @@ import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.AppButton
-import me.brisson.protekt.ui.BottomSheet
-import me.brisson.protekt.ui.CreateItemBottomSheet
+import me.brisson.protekt.ui.components.BottomSheet
+import me.brisson.protekt.ui.components.CreateItemBottomSheet
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat
