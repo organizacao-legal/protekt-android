@@ -334,8 +334,21 @@ fun CreateCredentialScreen(
             AppButton(modifier = Modifier
                 .padding(24.dp)
                 .fillMaxWidth(),
-                //todo: consider 'credential' if not null
-                onClick = { viewModel.createCredential(Credential(
+                onClick = {
+                    // Editing existing credential
+                    credential?.let {
+                        it.url = urlInput.text
+                        it.name = nameInput.text
+                        it.username = usernameInput.text
+                        it.password = Password(passwordInput.text)
+                        it.note = notesInput.text
+
+                        viewModel.createCredential(it)
+                        return@AppButton
+                    }
+
+                    // Creating a new credential
+                    viewModel.createCredential(Credential(
                     url = urlInput.text,
                     name = nameInput.text,
                     username = usernameInput.text,
