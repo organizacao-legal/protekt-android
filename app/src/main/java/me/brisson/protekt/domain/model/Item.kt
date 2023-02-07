@@ -12,11 +12,12 @@ interface Item {
 
     enum class Type(
         @StringRes val stringResId: Int,
-        @DrawableRes val drawableResId: Int
+        @DrawableRes val drawableResId: Int,
+        val enabled: Boolean
     ) {
-        CREDENTIALS(R.string.credentials, R.drawable.ic_arcticons_locker),
-        CREDIT_CARDS(R.string.credit_cards, R.drawable.ic_credit_card),
-        IDENTITIES(R.string.identities, R.drawable.ic_id_card),
-        SECRET_NOTES(R.string.secret_notes, R.drawable.ic_note)
+        CREDENTIALS(R.string.credentials, R.drawable.ic_arcticons_locker, true),
+        CREDIT_CARDS(R.string.credit_cards, R.drawable.ic_credit_card, false),
+        IDENTITIES(R.string.identities, R.drawable.ic_id_card, false),
+        SECRET_NOTES(R.string.secret_notes, R.drawable.ic_note, false)
     }
 }

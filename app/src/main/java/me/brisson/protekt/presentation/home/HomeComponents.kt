@@ -36,7 +36,6 @@ import coil.compose.AsyncImage
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
-import me.brisson.protekt.ui.ChipGroup
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
@@ -67,12 +66,12 @@ fun HomeHeader(
             }
             SearchInput(onSearch = onSearch, onValueChange = onSearchInputChange)
         }
-        ChipGroup(
-            modifier = Modifier.fillMaxWidth(),
-            chips = chips.map { stringResource(id = it.stringResId) },
-            contentPadding = PaddingValues(horizontal = 24.dp),
-            selectedChips = selectedChips
-        )
+//        ChipGroup(
+//            modifier = Modifier.fillMaxWidth(),
+//            chips = chips.map { stringResource(id = it.stringResId) },
+//            contentPadding = PaddingValues(horizontal = 24.dp),
+//            selectedChips = selectedChips
+//        )
     }
 }
 
@@ -211,26 +210,30 @@ fun CredentialItem(
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(
-                    text = credential.name,
-                    style = TextStyle(
-                        fontFamily = montserrat,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    ),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = credential.username,
-                    style = TextStyle(
-                        fontFamily = montserrat,
-                        fontWeight = FontWeight.Medium,
-                        color = DarkGray
-                    ),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                if (credential.name.isNotEmpty()) {
+                    Text(
+                        text = credential.name,
+                        style = TextStyle(
+                            fontFamily = montserrat,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                if (credential.username.isNotEmpty()) {
+                    Text(
+                        text = credential.username,
+                        style = TextStyle(
+                            fontFamily = montserrat,
+                            fontWeight = FontWeight.Medium,
+                            color = DarkGray
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
         }
 

@@ -36,7 +36,7 @@ import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.ui.AppButton
 import me.brisson.protekt.ui.AppButtonOutlined
 import me.brisson.protekt.ui.EditText
-import me.brisson.protekt.ui.PasswordSafetyLinearIndicator
+import me.brisson.protekt.ui.components.PasswordSafetyLinearIndicator
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme

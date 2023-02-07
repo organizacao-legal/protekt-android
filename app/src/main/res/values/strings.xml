@@ -18,6 +18,7 @@
     <string name="notes">Notes</string>
     <string name="generate_password">Generate Password</string>
     <string name="create_item_bottom_sheet_title">Choose a type</string>
+    <string name="coming_soon">Coming soon</string>
     <!--  delete item dialog  -->
     <string name="delete_item_dialog_title">Delete item</string>
     <string name="delete_item_dialog_text">Are you sure you want to remove this item from your account?</string>
