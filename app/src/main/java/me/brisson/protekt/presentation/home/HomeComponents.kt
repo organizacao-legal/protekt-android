@@ -39,7 +39,7 @@ import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 @ExperimentalMaterial3Api
 @Composable
@@ -106,7 +106,7 @@ fun SearchInput(
             input = TextFieldValue("")
             onSearch(input.text)
         }),
-        textStyle = TextStyle(fontFamily = montserrat),
+        textStyle = TextStyle(fontFamily = libreFranklin),
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         decorationBox = { innerTextField ->
             Crossfade(targetState = isFocused) { scope ->
@@ -150,7 +150,7 @@ fun SearchInput(
                             Text(
                                 text = stringResource(id = R.string.app_name).toUpperCase(Locale.current),
                                 style = TextStyle(
-                                    fontFamily = montserrat,
+                                    fontFamily = libreFranklin,
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Medium,
                                     color = MaterialTheme.colorScheme.onBackground,
@@ -214,7 +214,7 @@ fun CredentialItem(
                     Text(
                         text = credential.name,
                         style = TextStyle(
-                            fontFamily = montserrat,
+                            fontFamily = libreFranklin,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
                         ),
@@ -226,7 +226,7 @@ fun CredentialItem(
                     Text(
                         text = credential.username,
                         style = TextStyle(
-                            fontFamily = montserrat,
+                            fontFamily = libreFranklin,
                             fontWeight = FontWeight.Medium,
                             color = DarkGray
                         ),
@@ -266,7 +266,7 @@ fun ItemListEmptyState(
             modifier = Modifier.offset(y = (-10).dp),
             text = stringResource(id = R.string.item_list_empty_state_message),
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 fontSize = 16.sp,
                 color = MidGray,
                 fontWeight = FontWeight.Medium
@@ -281,7 +281,7 @@ fun ItemListEmptyState(
                 .padding(horizontal = 6.dp, vertical = 3.dp),
             text = stringResource(id = R.string.item_list_empty_state_action),
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.primary

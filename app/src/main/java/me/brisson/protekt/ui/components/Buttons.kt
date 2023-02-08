@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 @Composable
 fun AppButton(
@@ -76,7 +76,7 @@ fun PreviewAppButton() {
                 Text(
                     text = "This is a text",
                     color = MaterialTheme.colorScheme.primary,
-                    fontFamily = montserrat
+                    fontFamily = libreFranklin
                 )
             }
             AppButton(
@@ -86,7 +86,7 @@ fun PreviewAppButton() {
                 Text(
                     text = "This is a text",
                     color = MaterialTheme.colorScheme.onPrimary,
-                    fontFamily = montserrat
+                    fontFamily = libreFranklin
                 )
             }
         }

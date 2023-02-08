@@ -25,7 +25,7 @@ import me.brisson.protekt.ui.components.BottomSheet
 import me.brisson.protekt.ui.components.CreateItemBottomSheet
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 @ExperimentalMaterial3Api
 @ExperimentalComposeUiApi
@@ -90,7 +90,7 @@ fun HomeScreen(
                     modifier = Modifier.padding(start = 24.dp, top = 12.dp, bottom = 8.dp),
                     text = stringResource(id = R.string.my_vault),
                     style = TextStyle(
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         color = DarkGray,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.SemiBold

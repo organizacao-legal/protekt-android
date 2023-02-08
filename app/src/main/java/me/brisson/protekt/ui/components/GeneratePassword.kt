@@ -30,7 +30,7 @@ import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.domain.model.Password.Companion.generateRandomPassword
 import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 import me.brisson.protekt.utils.isNumeric
 
 @Composable
@@ -61,7 +61,7 @@ fun GeneratePassword(
                     SpanStyle(color = MaterialTheme.colorScheme.primary)
                 ),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -80,7 +80,7 @@ fun GeneratePassword(
                     imageVector = Icons.Rounded.Refresh,
                     contentDescription = stringResource(id = R.string.icon_refresh_content_description)
                 )
-                Text(text = stringResource(id = R.string.reload), fontFamily = montserrat)
+                Text(text = stringResource(id = R.string.reload), fontFamily = libreFranklin)
             }
             TextButton(onClick = {
                 Toast.makeText(context, "Password copied", Toast.LENGTH_SHORT).show()
@@ -90,7 +90,7 @@ fun GeneratePassword(
                     imageVector = Icons.Rounded.CopyAll,
                     contentDescription = stringResource(id = R.string.icon_copy_content_description)
                 )
-                Text(text = stringResource(id = R.string.copy), fontFamily = montserrat)
+                Text(text = stringResource(id = R.string.copy), fontFamily = libreFranklin)
             }
         }
     }

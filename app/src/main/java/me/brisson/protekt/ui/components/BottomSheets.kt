@@ -96,7 +96,7 @@ fun CreateItemBottomSheet(
                 .padding(top = 18.dp, bottom = 20.dp),
             text = stringResource(id = R.string.create_item_bottom_sheet_title),
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -138,7 +138,7 @@ fun GeneratePasswordBottomSheet(
         Text(
             modifier = Modifier.padding(top = 18.dp, bottom = 20.dp),
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -162,7 +162,7 @@ fun GeneratePasswordBottomSheet(
                 Text(
                     text = stringResource(id = R.string.cancel),
                     style = TextStyle(
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         color = MaterialTheme.colorScheme.primary
                     )
                 )
@@ -175,7 +175,7 @@ fun GeneratePasswordBottomSheet(
                 Text(
                     stringResource(id = R.string.use),
                     style = TextStyle(
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 )
@@ -223,14 +223,14 @@ fun CreateItemBottomSheetItem(
             Text(
                 modifier = Modifier.padding(),
                 text = stringResource(id = type.stringResId),
-                style = TextStyle(fontFamily = montserrat, color = mainColor),
+                style = TextStyle(fontFamily = libreFranklin, color = mainColor),
                 textDecoration = if (!enabled) TextDecoration.LineThrough else TextDecoration.None
             )
 
             if (!enabled) {
                 Text(
                     text = stringResource(id = R.string.coming_soon),
-                    style = TextStyle(fontFamily = montserrat, fontSize = 12.sp, color = DarkGray)
+                    style = TextStyle(fontFamily = libreFranklin, fontSize = 12.sp, color = DarkGray)
                 )
             }
         }

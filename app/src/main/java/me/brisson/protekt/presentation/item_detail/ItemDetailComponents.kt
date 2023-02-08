@@ -40,7 +40,7 @@ import me.brisson.protekt.ui.components.PasswordSafetyLinearIndicator
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.MidGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 @Composable
 fun CredentialDetails(
@@ -83,7 +83,7 @@ fun CredentialDetails(
                     modifier = Modifier.padding(start = 16.dp),
                     text = credential.name,
                     style = TextStyle(
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -100,7 +100,7 @@ fun CredentialDetails(
                     Text(
                         text = credential.url,
                         style = TextStyle(
-                            fontFamily = montserrat,
+                            fontFamily = libreFranklin,
                             fontSize = 13.sp,
                             color = DarkGray,
                             fontWeight = FontWeight.Medium
@@ -124,7 +124,7 @@ fun CredentialDetails(
         Text(
             text = "Username",
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 color = MaterialTheme.colorScheme.onBackground
             )
         )
@@ -136,7 +136,7 @@ fun CredentialDetails(
             label = {
                 Text(
                     text = "username",
-                    style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                    style = TextStyle(fontFamily = libreFranklin, color = DarkGray)
                 )
             },
             enabled = false,
@@ -162,7 +162,7 @@ fun CredentialDetails(
             modifier = Modifier.padding(top = 16.dp),
             text = "Password",
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 color = MaterialTheme.colorScheme.onBackground
             )
         )
@@ -174,7 +174,7 @@ fun CredentialDetails(
             label = {
                 Text(
                     text = "password",
-                    style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                    style = TextStyle(fontFamily = libreFranklin, color = DarkGray)
                 )
             },
             enabled = false,
@@ -228,7 +228,7 @@ fun CredentialDetails(
             modifier = Modifier.padding(top = 32.dp),
             text = "Notes",
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 color = MaterialTheme.colorScheme.onBackground
             )
         )
@@ -272,7 +272,7 @@ fun ItemOptionsDropdown(
                         modifier = Modifier.padding(start = 8.dp),
                         text = stringResource(id = R.string.edit),
                         style = TextStyle(
-                            fontFamily = montserrat,
+                            fontFamily = libreFranklin,
                             color = DarkGray,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium
@@ -302,7 +302,7 @@ fun ItemOptionsDropdown(
                         modifier = Modifier.padding(start = 8.dp),
                         text = stringResource(id = R.string.delete),
                         style = TextStyle(
-                            fontFamily = montserrat,
+                            fontFamily = libreFranklin,
                             color = MaterialTheme.colorScheme.error,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium
@@ -339,7 +339,7 @@ fun DeleteItemDialogUi(
             Text(
                 text = stringResource(id = R.string.delete_item_dialog_title),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -349,7 +349,7 @@ fun DeleteItemDialogUi(
                 modifier = Modifier.padding(top = 8.dp),
                 text = stringResource(id = R.string.delete_item_dialog_text),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     fontSize = 12.sp,
                     color = DarkGray
                 )
@@ -366,7 +366,7 @@ fun DeleteItemDialogUi(
                 ) {
                     Text(
                         stringResource(id = R.string.delete_item_dialog_cancel_button),
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
                         color = DarkGray
@@ -381,7 +381,7 @@ fun DeleteItemDialogUi(
                 ) {
                     Text(
                         stringResource(id = R.string.delete_item_dialog_delete_button),
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.surface

@@ -67,7 +67,7 @@ fun EditText(
         value = value,
         onValueChange = onValueChange,
         textStyle = TextStyle(
-            fontFamily = montserrat,
+            fontFamily = libreFranklin,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium
         ),
@@ -187,7 +187,7 @@ fun PreviewEditText() {
                     Text(
                         text = "email",
                         color = DarkGray,
-                        fontFamily = montserrat,
+                        fontFamily = libreFranklin,
                         fontWeight = FontWeight.Medium
                     )
                 },

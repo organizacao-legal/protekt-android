@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import me.brisson.protekt.R
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 
 @ExperimentalMaterial3Api
@@ -37,7 +37,7 @@ fun CustomChip(
             Text(
                 text = text,
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     fontWeight = FontWeight.Medium
                 )
             )

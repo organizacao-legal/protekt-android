@@ -36,7 +36,7 @@ import me.brisson.protekt.domain.model.Password
 import me.brisson.protekt.ui.components.*
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 @ExperimentalComposeUiApi
 @Composable
@@ -94,7 +94,7 @@ fun CreateCredentialScreen(
                 modifier = Modifier.padding(start = 24.dp, top = 24.dp),
                 text = stringResource(id = R.string.credentials),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold
@@ -103,9 +103,9 @@ fun CreateCredentialScreen(
 
             Text(
                 modifier = Modifier.padding(start = 24.dp, top = 8.dp),
-                text = "* items are mandatory",
+                text = stringResource(id = R.string.required_fields),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = DarkGray,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
@@ -118,7 +118,7 @@ fun CreateCredentialScreen(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 32.dp),
                 text = stringResource(id = R.string.url) ,
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
@@ -133,7 +133,7 @@ fun CreateCredentialScreen(
                 label = {
                     Text(
                         text = stringResource(id = R.string.url_label),
-                        style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                        style = TextStyle(fontFamily = libreFranklin, color = DarkGray)
                     )
                 },
                 keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
@@ -151,7 +151,7 @@ fun CreateCredentialScreen(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
                 text = stringResource(id = R.string.name),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
@@ -166,7 +166,7 @@ fun CreateCredentialScreen(
                 label = {
                     Text(
                         text = stringResource(id = R.string.name_label),
-                        style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                        style = TextStyle(fontFamily = libreFranklin, color = DarkGray)
                     )
                 },
                 keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
@@ -186,7 +186,7 @@ fun CreateCredentialScreen(
                     .padding(start = 24.dp, end = 24.dp, top = 16.dp),
                 text = stringResource(id = R.string.username),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
@@ -201,7 +201,7 @@ fun CreateCredentialScreen(
                 label = {
                     Text(
                         text = stringResource(id = R.string.username_label),
-                        style = TextStyle(fontFamily = montserrat, color = DarkGray)
+                        style = TextStyle(fontFamily = libreFranklin, color = DarkGray)
                     )
                 },
                 keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Next) }),
@@ -219,7 +219,7 @@ fun CreateCredentialScreen(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
                 text = stringResource(id = R.string.password),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
@@ -302,7 +302,7 @@ fun CreateCredentialScreen(
                 modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 16.dp),
                 text = stringResource(id = R.string.notes),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             )
@@ -358,7 +358,7 @@ fun CreateCredentialScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.save),
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             }

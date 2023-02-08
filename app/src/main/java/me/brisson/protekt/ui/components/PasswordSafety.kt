@@ -236,7 +236,7 @@ fun PasswordSafetyIndicatorItem(
         Text(
             text,
             style = TextStyle(
-                fontFamily = montserrat,
+                fontFamily = libreFranklin,
                 fontSize = 12.sp,
                 color = textColor,
                 fontWeight = FontWeight.SemiBold

@@ -21,7 +21,7 @@ import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.ui.theme.ProteKTTheme
-import me.brisson.protekt.ui.theme.montserrat
+import me.brisson.protekt.ui.theme.libreFranklin
 
 @Composable
 fun ItemDetailScreen(
@@ -98,7 +98,7 @@ fun ItemDetailScreen(
                 modifier = Modifier.padding(24.dp),
                 text = stringResource(id = item.type.stringResId),
                 style = TextStyle(
-                    fontFamily = montserrat,
+                    fontFamily = libreFranklin,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onBackground
