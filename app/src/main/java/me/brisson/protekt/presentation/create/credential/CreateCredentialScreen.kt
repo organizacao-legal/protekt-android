@@ -33,11 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Password
-import me.brisson.protekt.ui.*
-import me.brisson.protekt.ui.components.BottomSheet
-import me.brisson.protekt.ui.components.GeneratePasswordBottomSheet
-import me.brisson.protekt.ui.components.PasswordSafetyIndicator
-import me.brisson.protekt.ui.components.PasswordSafetyLinearIndicator
+import me.brisson.protekt.ui.components.*
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.ProteKTTheme
 import me.brisson.protekt.ui.theme.montserrat

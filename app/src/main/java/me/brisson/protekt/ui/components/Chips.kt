@@ -1,4 +1,4 @@
-package me.brisson.protekt.ui
+package me.brisson.protekt.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth

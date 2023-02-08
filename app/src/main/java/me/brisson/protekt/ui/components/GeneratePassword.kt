@@ -1,4 +1,4 @@
-package me.brisson.protekt.ui
+package me.brisson.protekt.ui.components
 
 import android.widget.Toast
 import androidx.compose.animation.Crossfade

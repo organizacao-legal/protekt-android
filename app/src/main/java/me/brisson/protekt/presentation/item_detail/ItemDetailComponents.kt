@@ -33,9 +33,9 @@ import coil.compose.AsyncImage
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Credential
 import me.brisson.protekt.domain.model.Password
-import me.brisson.protekt.ui.AppButton
-import me.brisson.protekt.ui.AppButtonOutlined
-import me.brisson.protekt.ui.EditText
+import me.brisson.protekt.ui.components.AppButton
+import me.brisson.protekt.ui.components.AppButtonOutlined
+import me.brisson.protekt.ui.components.EditText
 import me.brisson.protekt.ui.components.PasswordSafetyLinearIndicator
 import me.brisson.protekt.ui.theme.DarkGray
 import me.brisson.protekt.ui.theme.MidGray
@@ -50,9 +50,9 @@ fun CredentialDetails(
     val context = LocalContext.current
     val localClipboardManager = LocalClipboardManager.current
     var showPassword by remember { mutableStateOf(false) }
-    var usernameInput by remember { mutableStateOf(TextFieldValue("")) }
-    var passwordInput by remember { mutableStateOf(TextFieldValue("")) }
-    var notesInput by remember { mutableStateOf(TextFieldValue("")) }
+    var usernameInput by remember { mutableStateOf(TextFieldValue(credential.username)) }
+    var passwordInput by remember { mutableStateOf(TextFieldValue(credential.password.value)) }
+    var notesInput by remember { mutableStateOf(TextFieldValue(credential.note)) }
 
     Column(
         modifier = modifier

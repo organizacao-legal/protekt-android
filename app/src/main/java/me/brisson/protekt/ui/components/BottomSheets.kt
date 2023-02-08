@@ -32,9 +32,6 @@ import androidx.compose.ui.window.DialogProperties
 import me.brisson.protekt.R
 import me.brisson.protekt.domain.model.Item
 import me.brisson.protekt.domain.model.Password
-import me.brisson.protekt.ui.AppButton
-import me.brisson.protekt.ui.AppButtonOutlined
-import me.brisson.protekt.ui.GeneratePassword
 import me.brisson.protekt.ui.theme.*
 
 @ExperimentalComposeUiApi
